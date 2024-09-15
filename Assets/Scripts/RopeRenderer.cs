@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class RopeRenderer : MonoBehaviour
 {
-    [SerializeField] private Transform startPosition;
     [SerializeField] private float line_width = 0.05f;
     private LineRenderer lineRenderer;
-    // Start is called before the first frame update
+    private Transform clawTransform;
+    private float initialY;
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.startWidth = line_width;
         lineRenderer.enabled = false;
+        initialY = transform.position.y;
     }
 
-    public void RenderLine(Vector3 endPosition, bool enableRenderer)
+    public void SetClawTransform(Transform claw)
+    {
+        clawTransform = claw;
+    }
+
+
+    public void RenderLine(Vector3 startPosition, Vector3 endPosition, bool enableRenderer)
     {
         if (enableRenderer)
         {
@@ -39,11 +46,12 @@ public class RopeRenderer : MonoBehaviour
 
         if (lineRenderer.enabled)
         {
-            Vector3 startPos = startPosition.position;
-            startPos.z = 0f;
-
+            Vector3 startPos = startPosition;
             Vector3 endPos = endPosition;
+                        
+            startPos.z = 0f;
             endPos.z = 0f;
+
 
             lineRenderer.SetPosition(0, startPos);
             lineRenderer.SetPosition(1, endPos);
