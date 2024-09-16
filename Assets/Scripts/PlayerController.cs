@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
@@ -11,15 +12,21 @@ public class PlayerController : Singleton<PlayerController>
     // [SerializeField] private GameObject _claw;
     [SerializeField] private Transform _clawParentTransform; // Drag ClawParent here in the Inspector
     [SerializeField] private float _rotationSpeed = 5f;
+    [SerializeField] private float _movingDownSpeed = 3f;
+    [SerializeField] private float _movingLeftOrRightSpeed = 1f;
+    [SerializeField] private float cableLength = -1f;
+
+
 
     private float minRotationAngle = -55f;
     private float maxRotationAngle = 55f;
     private float rotationAngle = 0f;
-    private float moveSpeed = 3f;
-    private float cableLength = -1f;
+
 
     private bool isMovingDown;
     private bool canRotate;
+    private bool isMovingRightOrLeft;
+    private bool isMovingRight;
     private bool isRotatingRight;
     private bool isGrabbing;
 
@@ -27,13 +34,17 @@ public class PlayerController : Singleton<PlayerController>
     private float initialMoveSpeed;
 
     private RopeRenderer ropeRenderer;
+    private Vector3 ropeStartPos;  
+
     Item grabbedItem;
 
-        private void Awake()
+    private void Awake()
     {
         if (_clawParentTransform != null)
         {
             ropeRenderer = _clawParentTransform.GetComponent<RopeRenderer>();
+            ropeRenderer.SetClawTransform(transform);
+
         }
         
         if (ropeRenderer == null)
@@ -44,8 +55,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
+        
         initialY = /*_claw.*/transform.position.y;
-        initialMoveSpeed = moveSpeed;
+        initialMoveSpeed = _movingDownSpeed;
         canRotate = true;
         isRotatingRight = true;
     }
@@ -53,15 +65,9 @@ public class PlayerController : Singleton<PlayerController>
     {
         Rotate();
         GetInput();
+        MoveLeftOrRight();
         HandleThrust();
-        //MoveLeftOrRight();
     }
-
-    // private void MoveLeftOrRight()
-    // {
-    //     throw new NotImplementedException();
-    // }
-
 
     private void GetInput()
     {
@@ -69,20 +75,68 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (canRotate)
             {
+                ropeStartPos = transform.position;  
+
                 canRotate = false;
                 isMovingDown = true;
+                isMovingRightOrLeft = false;
+
+                ropeRenderer.RenderLine(ropeStartPos, transform.position, true);        
             }
         }
 
-        // if (Input.GetKey(KeyCode.LeftApple) ||
-        //     Input.GetKey(KeyCode.RightArrow))
-        // {
-        //     if (canRotate)
-        //     {
-        //         canRotate = true;
-        //         moveDown = false;
-        //     }
-        // }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (canRotate)
+            {
+                canRotate = true;
+                isMovingDown = false;
+                isMovingRightOrLeft = true;
+                isMovingRight = false;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            if (canRotate)
+            {
+                canRotate = true;
+                isMovingDown = false;
+                isMovingRightOrLeft = true;
+                isMovingRight = true;
+            }
+        }
+    }
+
+    private void MoveLeftOrRight()
+    {
+        if(isMovingDown) return;
+
+        var rightBorder = GameManager.Instance.RightBorder;
+        var leftBorder = GameManager.Instance.LeftBorder;
+
+        if (isMovingRightOrLeft)
+        {
+            var tempPosition = transform.position;
+
+            if(isMovingRight)
+            {
+                if (tempPosition.x <= rightBorder)
+                {
+                    tempPosition.x += Time.deltaTime * _movingLeftOrRightSpeed;
+                }
+            }
+            else
+            {
+                if (tempPosition.x >= leftBorder)
+                {
+                    tempPosition.x -= Time.deltaTime * _movingLeftOrRightSpeed;
+                }
+            }
+
+            transform.position = tempPosition;
+            isMovingRightOrLeft = false;
+        } 
     }
 
     private void HandleThrust()
@@ -91,23 +145,32 @@ public class PlayerController : Singleton<PlayerController>
         
         else
         {
-            var tempPosition = /*_claw.*/transform.position;
+            var rightBorder = GameManager.Instance.RightBorder;
+            var leftBorder = GameManager.Instance.LeftBorder;
+            var tempPosition = transform.position;
 
             if(isMovingDown)
             {
-                tempPosition -= transform.up * Time.deltaTime * moveSpeed;
+                tempPosition -= transform.up * Time.deltaTime * _movingDownSpeed;
             }
             else
             {
-                tempPosition += transform.up * Time.deltaTime * moveSpeed;
+                tempPosition += transform.up * Time.deltaTime * _movingDownSpeed;
             }
 
-            /*_claw.*/transform.position = tempPosition;
+            transform.position = tempPosition;
 
             if (tempPosition.y <= cableLength)
             {
                 isMovingDown = false;
             }
+
+            if ((tempPosition.x >= rightBorder) ||
+                (tempPosition.x <= leftBorder))
+            {
+                isMovingDown = false;
+            }
+            // add touching wall
 
             if (tempPosition.y >= initialY)
             {
@@ -119,11 +182,11 @@ public class PlayerController : Singleton<PlayerController>
                     Debug.Log("Item Destroyed!");
                 }
                 canRotate = true;
-                ropeRenderer.RenderLine(tempPosition, false);
-                moveSpeed = initialMoveSpeed;
+                ropeRenderer.RenderLine(ropeStartPos, tempPosition, false);  // Disable rope rendering once claw reaches top
+                _movingDownSpeed = initialMoveSpeed;
             }
 
-            ropeRenderer.RenderLine(transform.position, true);
+            ropeRenderer.RenderLine(ropeStartPos, transform.position, true);
         }
     }
 
@@ -144,7 +207,7 @@ public class PlayerController : Singleton<PlayerController>
             rotationAngle -= rotationStep;
         }
 
-        /*_claw.*/transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
 
         if(rotationAngle >= maxRotationAngle)
         {
@@ -168,5 +231,11 @@ public class PlayerController : Singleton<PlayerController>
         isGrabbing = true;
         grabbedItem = item;
 
+        if (grabbedItem.itemData is GrabbableItemData grabbableItem)
+        {
+            float weightModifier = 1 / Mathf.Max(grabbableItem.weight, 1f);
+            _movingDownSpeed *= weightModifier;
+            Debug.Log($"Grabbed {grabbableItem.itemName} with weight: {grabbableItem.weight}.");
+        }
     }
 }
