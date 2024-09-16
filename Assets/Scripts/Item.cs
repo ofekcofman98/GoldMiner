@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -38,21 +39,34 @@ public class Item : MonoBehaviour
     {
         if(other.CompareTag("Claw"))
         {
-            Collect();
-            GameManager.Instance.OnItemClawCollision(/*other.GetComponent<Claw>(),*/ this);
-            
-            clawTransform = other.transform;
-            transform.SetParent(clawTransform);
-
+            if (itemData != null)
+            {
+                if (itemData is GrabbableItemData)
+                {
+                    GameManager.Instance.OnItemClawCollision(this);
+                    clawTransform = other.transform;
+                    transform.SetParent(clawTransform);
+                }
+                else if (itemData is NonGrabbableItem nonGrabbableItem)
+                {
+                    PlayerController.Instance.StopClawMovement();
+                    GameManager.Instance.OnItemDestroyed(this);
+                    Destroy(gameObject);
+                }
+                itemData.Collect();
+            }
         }
-
+        else
+        {
+            Debug.LogError("itemData is null!");
+        }
     }
 
-    public virtual void Collect()
-    {
-        Debug.Log("Item collected!");
-        // if gold / diamond / rock:
-    }
+    // public virtual void Collect()
+    // {
+    //     Debug.Log("Item collected!");
+    //     // if gold / diamond / rock:
+    // }
     public int GetScore()
     {
         int score = 0;

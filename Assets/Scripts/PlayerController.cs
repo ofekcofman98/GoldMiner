@@ -25,7 +25,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private bool isMovingDown;
     private bool canRotate;
-
     private bool isMovingRightOrLeft;
     private bool isMovingRight;
     private bool isRotatingRight;
@@ -208,7 +207,7 @@ public class PlayerController : Singleton<PlayerController>
             rotationAngle -= rotationStep;
         }
 
-        /*_claw.*/transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
 
         if(rotationAngle >= maxRotationAngle)
         {
@@ -232,5 +231,11 @@ public class PlayerController : Singleton<PlayerController>
         isGrabbing = true;
         grabbedItem = item;
 
+        if (grabbedItem.itemData is GrabbableItemData grabbableItem)
+        {
+            float weightModifier = 1 / Mathf.Max(grabbableItem.weight, 1f);
+            _movingDownSpeed *= weightModifier;
+            Debug.Log($"Grabbed {grabbableItem.itemName} with weight: {grabbableItem.weight}.");
+        }
     }
 }

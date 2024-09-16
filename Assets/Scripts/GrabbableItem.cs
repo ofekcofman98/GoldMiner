@@ -6,6 +6,7 @@ using UnityEngine;
 public class GrabbableItemData : ItemData
 {
     public int score;
+    public float weight = 1f;
 
     public override void Collect()
     {

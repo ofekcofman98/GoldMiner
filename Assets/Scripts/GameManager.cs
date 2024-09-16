@@ -51,7 +51,15 @@ public class GameManager : Singleton<GameManager>
             Debug.Log($"Level {levelIndex + 1} starts now!");
             foreach (var itemPositions in currentLevel.itemPositions)
             {
-                SpawnItem(itemPositions.itemData, itemPositions.position);
+                if (itemPositions.itemData != null)
+                {
+                    Debug.Log($"Spawning item: {itemPositions.itemData.itemName} at position {itemPositions.position}");
+                    SpawnItem(itemPositions.itemData, itemPositions.position);
+                }
+                else
+                {
+                    Debug.LogError("itemData is null for one of the item positions in the level!");
+                }
             }
         }
         else
@@ -60,7 +68,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void NewLevel()
+    public void NextLevel()
     {
         currentLevelIndex++;
         if(currentLevelIndex < levels.Count)
@@ -106,17 +114,36 @@ public class GameManager : Singleton<GameManager>
 
     void SpawnItem(ItemData itemData, Vector2 position)
     {
+        if(itemPrefab == null)
+        {
+            Debug.LogError("ItemPrefab is not assigned!");
+            return;
+        }
+        if(itemData == null)
+        {
+            Debug.LogError("itemData is null!");
+            return;
+        }
+
         GameObject newItem = Instantiate(itemPrefab, position, Quaternion.identity);
         newItem.transform.position = position;
-        newItem.SetActive(true);
-
         Item itemComponent = newItem.GetComponent<Item>();
-        itemComponent.itemData = itemData;
+        
+        if (itemComponent != null)
+        {
+            itemComponent.itemData = itemData;
+            itemComponent.Initialize();
+            Debug.Log($"Spawned item: {itemData.itemName} at position {position}"); 
+            newItem.SetActive(true);
+        }
+            else
+        {
+            Debug.LogError("Item component not found on instantiated prefab!");
+        }
 
-        itemComponent.Initialize();
     }
 
-    public void OnItemClawCollision(/*Claw claw,*/ Item item)
+    public void OnItemClawCollision(Item item)
     {
         PlayerController.Instance.StopClawMovement();
         PlayerController.Instance.Grab(item);
@@ -136,6 +163,21 @@ public class GameManager : Singleton<GameManager>
                 // CanvasManager.Instance.UpdateHiScore(_hiScore);
             }   
             // CanvasManager.Instance.UpdateCurrentScore(_currentScore);
+        }
+    }
+
+    public void OnItemDestroyed(Item item)
+    {
+        if (_currentItems.Contains(item))
+        {
+            _currentItems.Remove(item);
+            Debug.Log($"Non-grabbable item destroyed! Remaining items: {_currentItems.Count}");
+
+            // Check if all items are destroyed
+            if (_currentItems.Count == 0)
+            {
+                NextLevel();
+            }
         }
     }
 

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b0364d1112b80343bc5af864cd57afa, type: 3}
-  m_Name: Diamond
+  m_Name: GoldSmall
   m_EditorClassIdentifier: 
-  itemName: DiamondItemData
-  itemType: 1
-  sprite: {fileID: 1866545619, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
-  size: 0.8
-  score: 200
-  weight: 0.5
+  itemName: GoldSmall
+  itemType: 0
+  sprite: {fileID: 2110975168, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
+  size: 1
+  score: 30
+  weight: 1.2

@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0364d1112b80343bc5af864cd57afa, type: 3}
-  m_Name: Diamond
+  m_Script: {fileID: 11500000, guid: 6c54666a873d3c74aa8d5334a43d64ad, type: 3}
+  m_Name: BombItem
   m_EditorClassIdentifier: 
-  itemName: DiamondItemData
-  itemType: 1
-  sprite: {fileID: 1866545619, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
-  size: 0.8
-  score: 200
-  weight: 0.5
+  itemName: BombItem
+  itemType: 3
+  sprite: {fileID: 1144783411, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
+  size: 1
