@@ -41,16 +41,17 @@ public class Item : MonoBehaviour
         {
             if (itemData != null)
             {
+                GameManager.Instance.OnItemClawCollision(this);
+
                 if (itemData is GrabbableItemData)
                 {
-                    GameManager.Instance.OnItemClawCollision(this);
                     clawTransform = other.transform;
                     transform.SetParent(clawTransform);
                 }
                 else if (itemData is NonGrabbableItem nonGrabbableItem)
                 {
                     PlayerController.Instance.StopClawMovement();
-                    GameManager.Instance.OnItemDestroyed(this);
+                    // GameManager.Instance.OnItemDestroyed(this);
                     Destroy(gameObject);
                 }
                 itemData.Collect();
