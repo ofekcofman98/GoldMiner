@@ -23,7 +23,9 @@ public class GameManager : Singleton<GameManager>
     // [SerializeField] private Item _itemPrefab;
     private List<Item> _currentItems = new();
     public GameObject itemPrefab;
+
     public List<Level> levels;
+    public LevelManager levelManager;
     private int currentLevelIndex = 0;
 
 
@@ -49,22 +51,24 @@ public class GameManager : Singleton<GameManager>
         {
             Level currentLevel = levels[levelIndex];
             Debug.Log($"Level {levelIndex + 1} starts now!");
-            foreach (var itemPositions in currentLevel.itemPositions)
-            {
-                if (itemPositions.itemData != null)
-                {
-                    Debug.Log($"Spawning item: {itemPositions.itemData.itemName} at position {itemPositions.position}");
-                    SpawnItem(itemPositions.itemData, itemPositions.position);
-                }
-                else
-                {
-                    Debug.LogError("itemData is null for one of the item positions in the level!");
-                }
-            }
+            levelManager.StartLevel(currentLevel, itemPrefab);
+
+            // foreach (var itemPositions in currentLevel.itemPositions)
+            // {
+            //     if (itemPositions.itemData != null)
+            //     {
+            //         Debug.Log($"Spawning item: {itemPositions.itemData.itemName} at position {itemPositions.position}");
+            //         SpawnItem(itemPositions.itemData, itemPositions.position);
+            //     }
+            //     else
+            //     {
+            //         Debug.LogError("itemData is null for one of the item positions in the level!");
+            //     }
+            // }
         }
         else
         {
-            Debug.LogError("Level index is out oh bounds");
+            Debug.LogError("No more levels");
         }
     }
 
@@ -73,7 +77,7 @@ public class GameManager : Singleton<GameManager>
         currentLevelIndex++;
         if(currentLevelIndex < levels.Count)
         {
-            ClearCurrentItems();
+            levelManager.ClearItems();
             LoadLevel(currentLevelIndex);
         }
         else
@@ -163,32 +167,13 @@ public class GameManager : Singleton<GameManager>
                 // CanvasManager.Instance.UpdateHiScore(_hiScore);
             }   
             // CanvasManager.Instance.UpdateCurrentScore(_currentScore);
+            levelManager.OnItemDestroyed(item);
         }
     }
 
-    public void OnItemDestroyed(Item item)
-    {
-        if (_currentItems.Contains(item))
-        {
-            _currentItems.Remove(item);
-            Debug.Log($"Non-grabbable item destroyed! Remaining items: {_currentItems.Count}");
-
-            // Check if all items are destroyed
-            if (_currentItems.Count == 0)
-            {
-                NextLevel();
-            }
-        }
-    }
 
     private void DestroyItem(Item item)
     {
         Destroy(item.gameObject);  
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
