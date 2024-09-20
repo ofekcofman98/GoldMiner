@@ -176,6 +176,7 @@ public class PlayerController : Singleton<PlayerController>
             {
                 if (isGrabbing && grabbedItem != null)
                 {
+                    GameManager.Instance.levelManager.OnItemDestroyed(grabbedItem);
                     Destroy(grabbedItem.gameObject);
                     grabbedItem = null;
                     isGrabbing = false;

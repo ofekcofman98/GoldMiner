@@ -8,8 +8,9 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     private const string HiScore = "HiScore";
+    private bool isGameOver = false;
 
-    [SerializeField] private int _width = 20;
+    [SerializeField] private int _width = 40;
     [SerializeField] private int _height = 12;
     [SerializeField] private GameObject _wallPrefab;
 
@@ -23,7 +24,6 @@ public class GameManager : Singleton<GameManager>
     // [SerializeField] private Item _itemPrefab;
     private List<Item> _currentItems = new();
     public GameObject itemPrefab;
-
     public List<Level> levels;
     public LevelManager levelManager;
     private int currentLevelIndex = 0;
@@ -52,19 +52,6 @@ public class GameManager : Singleton<GameManager>
             Level currentLevel = levels[levelIndex];
             Debug.Log($"Level {levelIndex + 1} starts now!");
             levelManager.StartLevel(currentLevel, itemPrefab);
-
-            // foreach (var itemPositions in currentLevel.itemPositions)
-            // {
-            //     if (itemPositions.itemData != null)
-            //     {
-            //         Debug.Log($"Spawning item: {itemPositions.itemData.itemName} at position {itemPositions.position}");
-            //         SpawnItem(itemPositions.itemData, itemPositions.position);
-            //     }
-            //     else
-            //     {
-            //         Debug.LogError("itemData is null for one of the item positions in the level!");
-            //     }
-            // }
         }
         else
         {
@@ -169,6 +156,15 @@ public class GameManager : Singleton<GameManager>
             // CanvasManager.Instance.UpdateCurrentScore(_currentScore);
             levelManager.OnItemDestroyed(item);
         }
+    }
+
+    public void EndGame()
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+        Debug.Log("Game Over!");
+        Time.timeScale = 0;
     }
 
 
