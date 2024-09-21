@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class LevelManager : MonoBehaviour
 {
@@ -16,8 +18,6 @@ public class LevelManager : MonoBehaviour
     private float timeRemaining;
     private bool timerRunning = false;
     
-    public Text timerText;
-
     public void StartLevel(Level levelData, GameObject itemPrefab)
     {
         ClearItems();
@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
+                CanvasManager.Instance.UpdateTimerText(timeRemaining);
             }
             else
             {
@@ -48,14 +48,6 @@ public class LevelManager : MonoBehaviour
                 OnTimeUp();
             }
         }
-    }
-
-    void DisplayTime(float timeToDisplay)
-    {
-        timeToDisplay += 1;
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);          
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);        
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);    
     }
 
 
@@ -113,7 +105,7 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
     public void AddTime(float seconds)
     {
         timeRemaining += seconds;
-        DisplayTime(timeRemaining);
+        CanvasManager.Instance.UpdateTimerText(timeRemaining);
         Debug.Log($"{seconds} seconds added! Time remaining: {timeRemaining}");
     }
 

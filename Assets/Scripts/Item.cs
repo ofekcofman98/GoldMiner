@@ -7,8 +7,6 @@ public class Item : MonoBehaviour
 {
 
     public ItemData itemData;
-    // [SerializeField] public int score;
-    // [SerializeField] public float size;
     private SpriteRenderer spriteRenderer;
     private Transform clawTransform; 
 
@@ -62,19 +60,12 @@ public class Item : MonoBehaviour
             else if (itemData is NonGrabbableItem nonGrabbableItem)
             {
                 PlayerController.Instance.StopClawMovement();
-                // GameManager.Instance.OnItemDestroyed(this);
+                itemData.Collect();
                 Destroy(gameObject);
             }
-
-            itemData.Collect();
         }
     }
 
-    // public virtual void Collect()
-    // {
-    //     Debug.Log("Item collected!");
-    //     // if gold / diamond / rock:
-    // }
     public int GetScore()
     {
         int score = 0;

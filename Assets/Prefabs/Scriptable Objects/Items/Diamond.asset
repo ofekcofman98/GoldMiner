@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: DiamondItemData
   itemType: 1
-  sprite: {fileID: 1866545619, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
-  size: 0.8
+  sprite: {fileID: 21300000, guid: df09f432f6cb8ec499ec2d349fa8db17, type: 3}
+  size: 0.4
   score: 200
-  weight: 0.5
+  weight: 1

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class GameManager : Singleton<GameManager>
 {
@@ -15,24 +18,27 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject _wallPrefab;
 
     [Header("GameLoop")]
-    // [SerializeField] private int _initialLive = 3;
-    // private int _currentLives;
     private int _currentScore;
     private int _hiScore;
-    
+
     [Header("Items")]
-    // [SerializeField] private Item _itemPrefab;
     private List<Item> _currentItems = new();
     public GameObject itemPrefab;
     public List<Level> levels;
     public LevelManager levelManager;
     private int currentLevelIndex = 0;
 
+    List<int> topScores = new List<int>();
+    List<string> topNames = new List<string>();
 
-    // Start is called before the first frame update
+    internal int RightBorder => (_width / 2) + 1;
+    internal int LeftBorder => -1 * (_width / 2 + 1);
+    internal int BottomBorder => -1 * (_height / 2 + 1);
+
     void Start()
     {
-        StartGame();        
+        StartGame();       
+        // CanvasManager.Instance.UpdateScoreText(0);
     }
 
     private void StartGame()
@@ -41,8 +47,21 @@ public class GameManager : Singleton<GameManager>
         _hiScore = PlayerPrefs.GetInt(HiScore, 0);
         _currentScore = 0;
 
-        // PlayerController.Instance.InitializePlayer();
         LoadLevel(currentLevelIndex);
+
+        CanvasManager.Instance.UpdateScoreText(0);
+        CanvasManager.Instance.UpdateHiScore(_hiScore);
+    
+        LoadTopFiveScores();
+    }
+
+    private void LoadTopFiveScores()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            topScores.Add(PlayerPrefs.GetInt($"TopScore{i}", 0));
+            topNames.Add(PlayerPrefs.GetString($"TopName{i}", "Unknown"));
+        }
     }
 
     public void LoadLevel(int levelIndex)
@@ -73,25 +92,10 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void ClearCurrentItems()
-    {
-        foreach (var item in _currentItems)
-        {
-            DestroyItem(item);
-        }
-        _currentItems.Clear();
-    }
-
-    internal int RightBorder => (_width / 2) + 1;
-    internal int LeftBorder => -1 * (_width / 2 + 1);
-    // public int TopBorder => (_height / 2) + 1;
-    internal int BottomBorder => -1 * (_height / 2 + 1);
-
     private void CreateWalls()
     {
         CreateWall("RightWall",RightBorder, 0, 1, _height+1);
         CreateWall("LeftWall", LeftBorder, 0, 1, _height+1);
-        // CreateWall("TopWall", 0, TopBorder, _width+3, 1);
         CreateWall("BottomWall", 0, BottomBorder, _width+3, 1);
     }
 
@@ -137,8 +141,11 @@ public class GameManager : Singleton<GameManager>
     public void OnItemClawCollision(Item item)
     {
         PlayerController.Instance.StopClawMovement();
-        PlayerController.Instance.Grab(item);
-        
+        PlayerController.Instance.Grab(item);        
+    }
+
+    public void AddScore(Item item)
+    {
         int itemScore = item.GetScore();
         if (itemScore > 0)
         {
@@ -150,13 +157,47 @@ public class GameManager : Singleton<GameManager>
                 _hiScore = _currentScore;
                 PlayerPrefs.SetInt(HiScore, _hiScore);
                 PlayerPrefs.Save();
+                CanvasManager.Instance.UpdateHiScore(_hiScore);
+            }
+            CheckForTopFive(_currentScore);   
 
-                // CanvasManager.Instance.UpdateHiScore(_hiScore);
-            }   
-            // CanvasManager.Instance.UpdateCurrentScore(_currentScore);
-            levelManager.OnItemDestroyed(item);
+            CanvasManager.Instance.ShowItemScore(itemScore, item.transform.position);
+            CanvasManager.Instance.UpdateScoreText(_currentScore);
         }
     }
+
+    private void CheckForTopFive(int currentScore)
+    {
+        for (int i = 0; i < topScores.Count; i++)
+        {
+            if (currentScore > topScores[i])
+            {
+                string playerName = "Player";  // Default name, you can ask for user input later
+
+                topScores.Insert(i, currentScore);
+                topNames.Insert(i, playerName);
+
+                if (topScores.Count > 5) topScores.RemoveAt(5);
+                if (topNames.Count > 5) topNames.RemoveAt(5);
+
+                SaveTopFiveScores();
+
+                Debug.Log("New score added to top 5!");
+                break;
+            }
+        }
+    }
+
+    private void SaveTopFiveScores()
+    {
+        for (int i = 1; i <= topScores.Count; i++)
+        {
+            PlayerPrefs.SetInt($"TopScore{i}", topScores[i - 1]);
+            PlayerPrefs.SetString($"TopName{i}", topNames[i - 1]);
+        }
+        PlayerPrefs.Save();
+    }
+
 
     public void EndGame()
     {
@@ -167,6 +208,14 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 0;
     }
 
+    private void ClearCurrentItems()
+    {
+        foreach (var item in _currentItems)
+        {
+            DestroyItem(item);
+        }
+        _currentItems.Clear();
+    }
 
     private void DestroyItem(Item item)
     {
