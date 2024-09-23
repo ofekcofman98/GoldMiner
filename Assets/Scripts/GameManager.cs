@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -45,6 +46,9 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGame()
     {
+        // SceneManager.LoadScene("MainScene");
+
+
         if (cleanHiScore)
         {
             HiScoreManager.Instance.ResetTopFiveScores();
