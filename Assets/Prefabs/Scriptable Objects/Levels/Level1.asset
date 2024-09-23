@@ -23,7 +23,7 @@ MonoBehaviour:
     position: {x: 3.08, y: -1.8}
   - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
     position: {x: 0.76, y: -0.33}
-  - itemData: {fileID: 11400000, guid: f21e0b6f7b45ca84cbc95574e6298467, type: 2}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
     position: {x: -0.09, y: -2.9}
   - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
     position: {x: -0.13, y: -1.5}
@@ -35,3 +35,11 @@ MonoBehaviour:
     position: {x: 1, y: -3.11}
   - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
     position: {x: 4.42, y: -2.24}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
+    position: {x: 1.52, y: -1.22}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
+    position: {x: -4.54, y: -0.87}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: -0.58, y: -0.32}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 3.96, y: -0.82}

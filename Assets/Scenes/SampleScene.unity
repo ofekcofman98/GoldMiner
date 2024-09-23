@@ -900,7 +900,6 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: 9739dbcfc37610c4fa1789d52e1b7c07, type: 2}
   - {fileID: 11400000, guid: 4f9f2f6468d33a14fbd6b4d30cdd7730, type: 2}
-  levelManager: {fileID: 1879931187}
 --- !u!4 &1262088697
 Transform:
   m_ObjectHideFlags: 0

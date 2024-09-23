@@ -18,18 +18,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject _wallPrefab;
 
     [Header("GameLoop")]
+    private bool cleanHiScore = false;
     private int _currentScore;
+    private string _playerName = "Player";
+
     private int _hiScore;
 
     [Header("Items")]
     private List<Item> _currentItems = new();
     public GameObject itemPrefab;
     public List<Level> levels;
-    public LevelManager levelManager;
+    // public LevelManager levelManager;
     private int currentLevelIndex = 0;
-
-    List<int> topScores = new List<int>();
-    List<string> topNames = new List<string>();
 
     internal int RightBorder => (_width / 2) + 1;
     internal int LeftBorder => -1 * (_width / 2 + 1);
@@ -37,31 +37,36 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
+        HiScoreManager.Instance.LoadTopFiveScores();
+
         StartGame();       
-        // CanvasManager.Instance.UpdateScoreText(0);
     }
+
 
     private void StartGame()
     {
+        if (cleanHiScore)
+        {
+            HiScoreManager.Instance.ResetTopFiveScores();
+            CanvasManager.Instance.UpdateHiScore(0);
+        }
+
         CreateWalls();
         _hiScore = PlayerPrefs.GetInt(HiScore, 0);
         _currentScore = 0;
 
         LoadLevel(currentLevelIndex);
 
-        CanvasManager.Instance.UpdateScoreText(0);
-        CanvasManager.Instance.UpdateHiScore(_hiScore);
-    
-        LoadTopFiveScores();
-    }
-
-    private void LoadTopFiveScores()
-    {
-        for (int i = 1; i <= 5; i++)
+        List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
+        
+        if (topScores.Count > 0)
         {
-            topScores.Add(PlayerPrefs.GetInt($"TopScore{i}", 0));
-            topNames.Add(PlayerPrefs.GetString($"TopName{i}", "Unknown"));
+            CanvasManager.Instance.UpdateHiScore(topScores[0].score);
         }
+        CanvasManager.Instance.UpdateScoreText(0);
+        // CanvasManager.Instance.UpdateHiScore(_hiScore);
+    
+        // HiScoreManager.Instance.LoadTopFiveScores();
     }
 
     public void LoadLevel(int levelIndex)
@@ -70,11 +75,12 @@ public class GameManager : Singleton<GameManager>
         {
             Level currentLevel = levels[levelIndex];
             Debug.Log($"Level {levelIndex + 1} starts now!");
-            levelManager.StartLevel(currentLevel, itemPrefab);
+            LevelManager.Instance.StartLevel(currentLevel, itemPrefab);
         }
         else
         {
             Debug.LogError("No more levels");
+            EndGame();
         }
     }
 
@@ -83,7 +89,7 @@ public class GameManager : Singleton<GameManager>
         currentLevelIndex++;
         if(currentLevelIndex < levels.Count)
         {
-            levelManager.ClearItems();
+            LevelManager.Instance.ClearItems();
             LoadLevel(currentLevelIndex);
         }
         else
@@ -152,50 +158,25 @@ public class GameManager : Singleton<GameManager>
             _currentScore += itemScore;
             Debug.Log($"current score: {_currentScore}");
             
-            if (_currentScore > _hiScore)
-            {
-                _hiScore = _currentScore;
-                PlayerPrefs.SetInt(HiScore, _hiScore);
-                PlayerPrefs.Save();
-                CanvasManager.Instance.UpdateHiScore(_hiScore);
-            }
-            CheckForTopFive(_currentScore);   
+            HiScoreManager.Instance.CheckForTopFive(_currentScore, _playerName);
+            // if (_currentScore > _hiScore)
+            // {
+            //     _hiScore = _currentScore;
+            //     PlayerPrefs.SetInt(HiScore, _hiScore);
+            //     PlayerPrefs.Save();
+            //     CanvasManager.Instance.UpdateHiScore(_hiScore);
+            // }
 
             CanvasManager.Instance.ShowItemScore(itemScore, item.transform.position);
             CanvasManager.Instance.UpdateScoreText(_currentScore);
-        }
-    }
 
-    private void CheckForTopFive(int currentScore)
-    {
-        for (int i = 0; i < topScores.Count; i++)
-        {
-            if (currentScore > topScores[i])
+            List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
+            if (topScores.Count > 0)
             {
-                string playerName = "Player";  // Default name, you can ask for user input later
-
-                topScores.Insert(i, currentScore);
-                topNames.Insert(i, playerName);
-
-                if (topScores.Count > 5) topScores.RemoveAt(5);
-                if (topNames.Count > 5) topNames.RemoveAt(5);
-
-                SaveTopFiveScores();
-
-                Debug.Log("New score added to top 5!");
-                break;
+                CanvasManager.Instance.UpdateHiScore(topScores[0].score);
             }
-        }
-    }
 
-    private void SaveTopFiveScores()
-    {
-        for (int i = 1; i <= topScores.Count; i++)
-        {
-            PlayerPrefs.SetInt($"TopScore{i}", topScores[i - 1]);
-            PlayerPrefs.SetString($"TopName{i}", topNames[i - 1]);
         }
-        PlayerPrefs.Save();
     }
 
 

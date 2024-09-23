@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: GoldSmall
   m_EditorClassIdentifier: 
   itemName: GoldSmall
-  itemType: 0
   sprite: {fileID: 2110975168, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
   size: 1
   score: 30
-  weight: 1.2
+  weight: 2

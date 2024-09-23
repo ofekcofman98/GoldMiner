@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
     [Header("Items")]
     public List<Item> currentItems = new List<Item>();
@@ -69,7 +69,9 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
         if (itemData == null)
         {
             Debug.LogError("ItemData is null when trying to assign to the item!");
+            return;
         }
+
         itemComponent.itemData = itemData;
         itemComponent.Initialize();
         currentItems.Add(itemComponent);
@@ -78,6 +80,16 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
         {
             grabbableItems.Add(itemComponent);
         }
+
+        else if (itemData is BoosterItem boosterItem)
+        {
+            Debug.Log($"Spawning booster item: {boosterItem.itemName}");
+        }
+        else if (itemData is NonGrabbableItem nonGrabbableItem)
+        {
+            Debug.Log("Spawning non-grabbable item.");
+        }
+
     }
 }
 

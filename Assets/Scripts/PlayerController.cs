@@ -63,9 +63,18 @@ public class PlayerController : Singleton<PlayerController>
     }
     private void Update()
     {
-        Rotate();
+        if (canRotate)
+        {
+            Rotate();
+        }
+        
         GetInput();
-        MoveLeftOrRight();
+        
+        if (isMovingRightOrLeft)
+        {
+            MoveLeftOrRight();
+        }
+
         HandleThrust();
     }
 
@@ -176,7 +185,7 @@ public class PlayerController : Singleton<PlayerController>
             {
                 if (isGrabbing && grabbedItem != null)
                 {
-                    GameManager.Instance.levelManager.OnItemDestroyed(grabbedItem);
+                    LevelManager.Instance.OnItemDestroyed(grabbedItem);
                     grabbedItem.itemData.Collect();
                     GameManager.Instance.AddScore(grabbedItem);
                     Destroy(grabbedItem.gameObject);
