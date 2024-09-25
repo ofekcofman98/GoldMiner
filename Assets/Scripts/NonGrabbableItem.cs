@@ -6,4 +6,5 @@ using UnityEngine;
 public abstract class NonGrabbableItem : ItemData
 {
     public override abstract void Collect();
+    public abstract void Activate();
 }

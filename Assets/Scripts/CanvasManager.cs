@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class CanvasManager : Singleton<CanvasManager>
 {
     [SerializeField] private TextMeshProUGUI _currentScoreText;
-    [SerializeField] private TextMeshProUGUI _hiScoreText;
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _goalScoreText;
+    [SerializeField] private TextMeshProUGUI _hiScoreText;
     [SerializeField] private TextMeshProUGUI _itemScoreText; 
     [SerializeField] private Camera _mainCamera; 
 
@@ -25,7 +26,7 @@ public class CanvasManager : Singleton<CanvasManager>
     {
         if (_currentScoreText != null)
         {
-            _currentScoreText.text = $"Score: {currentScore}";
+            _currentScoreText.text = $"Score: {currentScore}$";
         }
         else
         {
@@ -38,6 +39,13 @@ public class CanvasManager : Singleton<CanvasManager>
         _hiScoreText.text = hiScore.ToString();
     }
 
+    public void UpdateGoalScore(int goalScore)
+    {
+        if (_goalScoreText != null)
+        {
+            _goalScoreText.text = $"Goal: {goalScore}$";
+        }
+    }
 
     public void UpdateTimerText(float timeToDisplay)
     {
@@ -58,7 +66,7 @@ public class CanvasManager : Singleton<CanvasManager>
     {
         if (_itemScoreText != null)
         {
-            _itemScoreText.text = $"+{score}";
+            _itemScoreText.text = $"+{score}$";
             Vector3 screenPosition = _mainCamera.WorldToScreenPoint(clawWorldPosition);
             _itemScoreText.transform.position = screenPosition + new Vector3(50, 30, 0); // Adjust Y position to place it above the claw
             _itemScoreText.gameObject.SetActive(true);

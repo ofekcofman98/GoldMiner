@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: GoldItemData
   sprite: {fileID: 790850078, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
   size: 1
-  score: 50
+  score: 100
   weight: 2.5

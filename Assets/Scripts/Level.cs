@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewLevel", menuName = "Level", order = 2)]
 public class Level : ScriptableObject
 {
+    public int scoreGoal;
     public ItemPosition[] itemPositions;
+
 }
 
     [System.Serializable] 

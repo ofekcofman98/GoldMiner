@@ -21,7 +21,6 @@ public class HiScoreManager : Singleton<HiScoreManager>
 
     private List<ScoreEntry> topScores = new List<ScoreEntry>();
 
-    // Start is called before the first frame update
     void Start()
     {
         LoadTopFiveScores();

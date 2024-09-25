@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
     private List<Item> _currentItems = new();
     public GameObject itemPrefab;
     public List<Level> levels;
-    // public LevelManager levelManager;
+
     private int currentLevelIndex = 0;
 
     internal int RightBorder => (_width / 2) + 1;
@@ -181,6 +181,11 @@ public class GameManager : Singleton<GameManager>
             }
 
         }
+    }
+
+    public int GetCurrentScore()
+    {
+        return _currentScore;
     }
 
 
