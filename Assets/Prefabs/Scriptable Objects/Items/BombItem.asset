@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BombItem
   itemType: 3
-  sprite: {fileID: 1144783411, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
-  size: 1
+  sprite: {fileID: 21300000, guid: d708846ae44a1514cace4a384ad01e0e, type: 3}
+  size: 0.7

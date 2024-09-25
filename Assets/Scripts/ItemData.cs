@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "ItemData")]
+// [CreateAssetMenu(fileName = "ItemData", menuName = "ItemData")]
 public abstract class ItemData : ScriptableObject
 {
     public string itemName;
-    public ItemType itemType;
     public Sprite sprite;
     public float size;
-    // public int score;
+
+    public virtual ItemType itemType {get;}
 
     public abstract void Collect();
 

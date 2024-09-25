@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: RockBig
   m_EditorClassIdentifier: 
   itemName: Rock
-  itemType: 2
   sprite: {fileID: -1359215171, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
   size: 1.8
   score: 5
-  weight: 4
+  weight: 4.5

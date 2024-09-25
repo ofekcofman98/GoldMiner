@@ -7,8 +7,6 @@ public class Item : MonoBehaviour
 {
 
     public ItemData itemData;
-    // [SerializeField] public int score;
-    // [SerializeField] public float size;
     private SpriteRenderer spriteRenderer;
     private Transform clawTransform; 
 
@@ -21,53 +19,53 @@ public class Item : MonoBehaviour
 
     public void Initialize()
     {
-        if (itemData != null && spriteRenderer != null)
+        if (itemData == null)
         {
-            Debug.Log("Setting sprite and size based on ItemData");
-            spriteRenderer.sprite = itemData.sprite;
-
-            // Set the item's size based on ItemData
-            transform.localScale = new Vector3(itemData.size, itemData.size, 1);
-
-            // Set the score from ItemData
-            // score = itemData.score;
+            Debug.LogError($"itemData is null in Initialize for {gameObject.name}!");
+            return;
         }
+
+        if (spriteRenderer == null)
+        {
+            Debug.LogError($"SpriteRenderer is missing on {gameObject.name}!");
+            return;
+        }
+
+        Debug.Log($"Initializing {itemData.itemName} with size {itemData.size}");
+
+        // Setting sprite and size based on ItemData
+        spriteRenderer.sprite = itemData.sprite;
+        transform.localScale = new Vector3(itemData.size, itemData.size, 1);
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Claw"))
         {
-            if (itemData != null)
+
+            if (itemData == null)
+            {
+                Debug.LogError($"{gameObject.name}: itemData is null during collision with claw!");
+                return; 
+            }
+
+            if (itemData is GrabbableItemData)
             {
                 GameManager.Instance.OnItemClawCollision(this);
-
-                if (itemData is GrabbableItemData)
-                {
-                    clawTransform = other.transform;
-                    transform.SetParent(clawTransform);
-                }
-                else if (itemData is NonGrabbableItem nonGrabbableItem)
-                {
-                    PlayerController.Instance.StopClawMovement();
-                    // GameManager.Instance.OnItemDestroyed(this);
-                    Destroy(gameObject);
-                }
-                itemData.Collect();
+                clawTransform = other.transform;
+                transform.SetParent(clawTransform);
             }
-        }
-        else
-        {
-            Debug.LogError("itemData is null!");
+            else if (itemData is NonGrabbableItem nonGrabbableItem)
+            {
+                PlayerController.Instance.StopClawMovement();
+                itemData.Collect();
+                Destroy(gameObject);
+            }
         }
     }
 
-    // public virtual void Collect()
-    // {
-    //     Debug.Log("Item collected!");
-    //     // if gold / diamond / rock:
-    // }
     public int GetScore()
     {
         int score = 0;
