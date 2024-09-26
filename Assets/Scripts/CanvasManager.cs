@@ -9,6 +9,7 @@ public class CanvasManager : Singleton<CanvasManager>
 {
     [SerializeField] private TextMeshProUGUI _currentScoreText;
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _timeBonusText;
     [SerializeField] private TextMeshProUGUI _goalScoreText;
     [SerializeField] private TextMeshProUGUI _hiScoreText;
     [SerializeField] private TextMeshProUGUI _itemScoreText; 
@@ -19,6 +20,10 @@ public class CanvasManager : Singleton<CanvasManager>
         if (_itemScoreText != null)
         {
             _itemScoreText.gameObject.SetActive(false);
+        }
+        if (_timeBonusText != null)
+        {
+            _timeBonusText.gameObject.SetActive(false);
         }
     }
 
@@ -54,7 +59,7 @@ public class CanvasManager : Singleton<CanvasManager>
             timeToDisplay += 1;
             float minutes = Mathf.FloorToInt(timeToDisplay / 60);          
             float seconds = Mathf.FloorToInt(timeToDisplay % 60);        
-            _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);    
+            _timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
         }
         else
         {
@@ -62,7 +67,17 @@ public class CanvasManager : Singleton<CanvasManager>
         }
     }
 
-     public void ShowItemScore(int score, Vector3 clawWorldPosition)
+    public void ShowTimeBonusText(float seconds)
+    {
+        if (_timeBonusText != null)
+        {
+            _timeBonusText.text = $"+{seconds}";
+            _timeBonusText.gameObject.SetActive(true);
+            StartCoroutine(HideTextAfterDelay(_timeBonusText));
+        }
+    }
+
+    public void ShowItemScore(int score, Vector3 clawWorldPosition)
     {
         if (_itemScoreText != null)
         {
@@ -70,15 +85,14 @@ public class CanvasManager : Singleton<CanvasManager>
             Vector3 screenPosition = _mainCamera.WorldToScreenPoint(clawWorldPosition);
             _itemScoreText.transform.position = screenPosition + new Vector3(50, 30, 0); // Adjust Y position to place it above the claw
             _itemScoreText.gameObject.SetActive(true);
-            StartCoroutine(HideItemScoreAfterDelay());
+            StartCoroutine(HideTextAfterDelay(_itemScoreText));
         }
     }
 
-    
-    private IEnumerator HideItemScoreAfterDelay()
+    private IEnumerator HideTextAfterDelay(TextMeshProUGUI i_text)
     {
         yield return new WaitForSeconds(2f);
-        _itemScoreText.gameObject.SetActive(false);
+        i_text.gameObject.SetActive(false);
     }
 
 }

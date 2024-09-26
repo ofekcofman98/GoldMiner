@@ -40,14 +40,12 @@ public class GameManager : Singleton<GameManager>
     {
         HiScoreManager.Instance.LoadTopFiveScores();
 
-        StartGame();       
+        // StartGame();       
     }
 
 
-    private void StartGame()
+    public void StartGame()
     {
-        // SceneManager.LoadScene("MainScene");
-
 
         if (cleanHiScore)
         {
@@ -68,9 +66,6 @@ public class GameManager : Singleton<GameManager>
             CanvasManager.Instance.UpdateHiScore(topScores[0].score);
         }
         CanvasManager.Instance.UpdateScoreText(0);
-        // CanvasManager.Instance.UpdateHiScore(_hiScore);
-    
-        // HiScoreManager.Instance.LoadTopFiveScores();
     }
 
     public void LoadLevel(int levelIndex)
@@ -163,14 +158,6 @@ public class GameManager : Singleton<GameManager>
             Debug.Log($"current score: {_currentScore}");
             
             HiScoreManager.Instance.CheckForTopFive(_currentScore, _playerName);
-            // if (_currentScore > _hiScore)
-            // {
-            //     _hiScore = _currentScore;
-            //     PlayerPrefs.SetInt(HiScore, _hiScore);
-            //     PlayerPrefs.Save();
-            //     CanvasManager.Instance.UpdateHiScore(_hiScore);
-            // }
-
             CanvasManager.Instance.ShowItemScore(itemScore, item.transform.position);
             CanvasManager.Instance.UpdateScoreText(_currentScore);
 

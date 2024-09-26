@@ -21,58 +21,81 @@ public class MenuManager : Singleton<MenuManager>
             levelStartPanel,
             pausePanel
         };
+
+        ShowMainMenu();
     }
+
     public void ShowMainMenu()
     {
         ShowMenu(mainMenuPanel);
+        StopTime();
     }
+    
 
     public void ShowTopScoresMenu()
     {
         ShowMenu(topScoresPanel);
+        StopTime();
     }
 
     public void ShowLevelStartPanel()
     {
         ShowMenu(levelStartPanel);
+        StopTime();
     }
     
     public void ShowPausePanel()
     {
         ShowMenu(pausePanel);
-        Time.timeScale = 0;
+        StopTime();
     }
 
-    public void ResumeGame()
+    // public void ResumeGame()
+    // {
+    //     ShowMenu(null);
+    //     RunTime();
+    // }
+
+    public void OnStartGameButtonClicked()
     {
-        ShowMenu(null);
-        Time.timeScale = 1;
+        HideAllMenus();
+        RunTime();
+        GameManager.Instance.StartGame();
+    }
+
+    private void HideAllMenus()
+    {
+        foreach (var menu in menusList)
+        {
+            if (menu != null)
+            {
+                menu.SetActive(false);
+            }
+        }
     }
 
     public void ShowMenu(GameObject menuToShow)
     {
-        if (menusList.Contains(menuToShow))
+        HideAllMenus();
+
+        if (menuToShow != null)
         {
-            foreach (var menu in menusList)
-            {
-                if (menu != null)
-                {
-                    menu.SetActive(false);
-                }
-            }
-            if (menuToShow != null)
-            {
-                menuToShow.SetActive(true);
-            }
-            else
-            {
-                Debug.LogError("Menu not found");
-            }
+            menuToShow.SetActive(true);
         }
         else
         {
-            Debug.LogError("Menu not found.");
+            Debug.LogError("menu not found");
         }
+    }
+
+    private void StopTime()
+    {
+        Time.timeScale = 0;
+    }
+
+    private void RunTime()
+    {
+        Time.timeScale = 1;
     }
 
     public void ExitGame()
