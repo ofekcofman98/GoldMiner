@@ -37,6 +37,7 @@ public class PlayerController : Singleton<PlayerController>
     private Vector3 ropeStartPos;  
 
     Item grabbedItem;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -51,6 +52,13 @@ public class PlayerController : Singleton<PlayerController>
         {
             Debug.LogError("RopeRenderer component not found on ClawParent!");
         }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
     }
 
     private void Start()
@@ -185,6 +193,7 @@ public class PlayerController : Singleton<PlayerController>
             {
                 if (isGrabbing && grabbedItem != null)
                 {
+                    PlayGrabbedItemSound(grabbedItem); 
                     LevelManager.Instance.OnItemDestroyed(grabbedItem);
                     grabbedItem.itemData.Collect();
                     GameManager.Instance.AddScore(grabbedItem);
@@ -250,4 +259,14 @@ public class PlayerController : Singleton<PlayerController>
             Debug.Log($"Grabbed {grabbableItem.itemName} with weight: {grabbableItem.weight}.");
         }
     }
+
+       private void PlayGrabbedItemSound(Item grabbedItem)
+    {
+        if (grabbedItem.itemData.Sound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(grabbedItem.itemData.Sound);
+        }
+    }
+ 
 }
+

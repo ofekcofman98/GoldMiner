@@ -7,13 +7,21 @@ using UnityEngine.UI;
 
 public class CanvasManager : Singleton<CanvasManager>
 {
+    // [Header("Score Texts")]
     [SerializeField] private TextMeshProUGUI _currentScoreText;
+    [SerializeField] private TextMeshProUGUI _hiScoreText;
+    [SerializeField] private TextMeshProUGUI _topScoresText; 
+    [SerializeField] private TextMeshProUGUI _goalScoreText;
+    [SerializeField] private TextMeshProUGUI _goalScoreInLeveLMenuText;
+    [SerializeField] private TextMeshProUGUI _itemScoreText; 
+
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private TextMeshProUGUI _timeBonusText;
-    [SerializeField] private TextMeshProUGUI _goalScoreText;
-    [SerializeField] private TextMeshProUGUI _hiScoreText;
-    [SerializeField] private TextMeshProUGUI _itemScoreText; 
+    [SerializeField] private TextMeshProUGUI _levelNumberText;
     [SerializeField] private Camera _mainCamera; 
+
+    [SerializeField] private TMP_InputField nameInputField; 
+
 
     private void Start()
     {
@@ -44,11 +52,46 @@ public class CanvasManager : Singleton<CanvasManager>
         _hiScoreText.text = hiScore.ToString();
     }
 
+    public void UpdateTopScores()
+    {
+        List<HiScoreManager.ScoreEntry> topScoresList = HiScoreManager.Instance.GetTopScores();
+        string displayText = "";
+        for (int i = 0; i < topScoresList.Count; i++)
+        {
+            displayText += $"{i+1}. {topScoresList[i].playerName}: {topScoresList[i].score}\n";
+        }
+
+        if (_topScoresText != null)
+        {
+            _topScoresText.text = displayText;
+        }
+        else
+        {
+            Debug.LogWarning("Top scores text is not found.");
+        }
+    }
+
     public void UpdateGoalScore(int goalScore)
     {
         if (_goalScoreText != null)
         {
             _goalScoreText.text = $"Goal: {goalScore}$";
+        }
+    }
+
+    public void UpdateGoalScoreInLevelStartMenu(int goalScore)
+    {
+        if (_goalScoreInLeveLMenuText != null)
+        {
+            _goalScoreInLeveLMenuText.text = $"Goal: {goalScore}$";
+        }
+    }
+
+    public void UpdateLevelNumberText(int levelNumber)
+    {
+        if (_levelNumberText != null)
+        {
+            _levelNumberText.text = $"Level Number {levelNumber}";
         }
     }
 
@@ -77,6 +120,16 @@ public class CanvasManager : Singleton<CanvasManager>
         }
     }
 
+    public string GetEnteredName()
+    {
+        return nameInputField.text;
+    }
+
+    public void ClearNameInput()
+    {
+        nameInputField.text = string.Empty;
+    }
+
     public void ShowItemScore(int score, Vector3 clawWorldPosition)
     {
         if (_itemScoreText != null)
@@ -94,6 +147,7 @@ public class CanvasManager : Singleton<CanvasManager>
         yield return new WaitForSeconds(2f);
         i_text.gameObject.SetActive(false);
     }
+
 
 }
 

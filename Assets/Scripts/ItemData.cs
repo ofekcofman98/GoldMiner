@@ -9,10 +9,13 @@ public abstract class ItemData : ScriptableObject
     public string itemName;
     public Sprite sprite;
     public float size;
+    public AudioClip Sound;
+
 
     public virtual ItemType itemType {get;}
 
     public abstract void Collect();
+    //public abstract void PlayCollectAudio();
 
 
     public enum ItemType

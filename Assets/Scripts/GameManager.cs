@@ -39,14 +39,11 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         HiScoreManager.Instance.LoadTopFiveScores();
-
-        // StartGame();       
     }
 
 
     public void StartGame()
     {
-
         if (cleanHiScore)
         {
             HiScoreManager.Instance.ResetTopFiveScores();
@@ -74,7 +71,8 @@ public class GameManager : Singleton<GameManager>
         {
             Level currentLevel = levels[levelIndex];
             Debug.Log($"Level {levelIndex + 1} starts now!");
-            LevelManager.Instance.StartLevel(currentLevel, itemPrefab);
+            MenuManager.Instance.ShowLevelStartPanel(levelIndex + 1, currentLevel.scoreGoal);
+            LevelManager.Instance.PrepareLevel(currentLevel, itemPrefab);
         }
         else
         {
@@ -182,6 +180,15 @@ public class GameManager : Singleton<GameManager>
 
         isGameOver = true;
         Debug.Log("Game Over!");
+
+        if (HiScoreManager.Instance.CheckIfPlayerIsInTopFive())
+        {
+            MenuManager.Instance.ShowNameEntryPanel();
+        }
+        else
+        {
+            MenuManager.Instance.ShowMainMenu();
+        }
         Time.timeScale = 0;
     }
 

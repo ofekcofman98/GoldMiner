@@ -20,14 +20,24 @@ public class LevelManager : Singleton<LevelManager>
 
     private Level currentLevel;
     
-    public void StartLevel(Level levelData, GameObject itemPrefab)
+    public void PrepareLevel(Level levelData, GameObject itemPrefab)
     {
         ClearItems();
         timeRemaining = levelTimeLimit;
         currentLevel = levelData;
         CanvasManager.Instance.UpdateGoalScore(currentLevel.scoreGoal);
         LoadItems(levelData, itemPrefab);
+    }
+
+    public void StartLevel()
+    {
+        if (currentLevel == null)
+        {
+            Debug.LogError("Current level is not set!");
+            return;
+        }
         StartTimer();
+        // MenuManager.Instance.HideMenu();
     }
 
     private void StartTimer()

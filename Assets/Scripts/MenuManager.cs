@@ -9,6 +9,7 @@ public class MenuManager : Singleton<MenuManager>
     public GameObject topScoresPanel;
     public GameObject levelStartPanel;
     public GameObject pausePanel;
+    public GameObject nameEntryPanel;
 
     private List<GameObject> menusList;
     
@@ -19,7 +20,8 @@ public class MenuManager : Singleton<MenuManager>
             mainMenuPanel,
             topScoresPanel,
             levelStartPanel,
-            pausePanel
+            pausePanel,
+            nameEntryPanel
         };
 
         ShowMainMenu();
@@ -35,12 +37,21 @@ public class MenuManager : Singleton<MenuManager>
     public void ShowTopScoresMenu()
     {
         ShowMenu(topScoresPanel);
+        CanvasManager.Instance.UpdateTopScores();
         StopTime();
     }
 
-    public void ShowLevelStartPanel()
+    public void ShowLevelStartPanel(int levelNumber, int goalScore)
     {
         ShowMenu(levelStartPanel);
+        CanvasManager.Instance.UpdateLevelNumberText(levelNumber);
+        CanvasManager.Instance.UpdateGoalScoreInLevelStartMenu(goalScore);
+        StopTime();
+    }
+
+    public void ShowNameEntryPanel()
+    {
+        ShowMenu(nameEntryPanel);
         StopTime();
     }
     
@@ -50,17 +61,61 @@ public class MenuManager : Singleton<MenuManager>
         StopTime();
     }
 
-    // public void ResumeGame()
-    // {
-    //     ShowMenu(null);
-    //     RunTime();
-    // }
-
     public void OnStartGameButtonClicked()
     {
         HideAllMenus();
         RunTime();
         GameManager.Instance.StartGame();
+    }
+
+    public void OnTop5ButtonClicked()
+    {
+        HideAllMenus();
+        ShowTopScoresMenu();
+    }
+
+    public void OnExitGameButtonClicked()
+    {
+        HideAllMenus();
+        ExitGame();
+    }
+
+    public void OnLevelStartButtonclicked()
+    {
+        HideMenu(levelStartPanel);
+        LevelManager.Instance.StartLevel();
+        RunTime();
+    }
+
+    public void OnSubmutNameButtonClicked()
+    {
+        string playerName = CanvasManager.Instance.GetEnteredName();
+
+        if (!string.IsNullOrEmpty(playerName))
+        {
+            HiScoreManager.Instance.UpdatePlayerNameForTopScore(playerName);
+            HideAllMenus();
+            CanvasManager.Instance.ClearNameInput();
+            ShowMainMenu();
+        }
+        else
+        {
+            Debug.LogWarning("Player name cannot be empty!");
+        }
+    }
+
+    public void OnBackButtonClicked()
+    {
+        HideAllMenus();
+        ShowMainMenu();
+    }
+
+    private void HideMenu(GameObject menuToHide)
+    {
+        if (menuToHide != null)
+        {
+            menuToHide.SetActive(false);
+        }
     }
 
     private void HideAllMenus()
