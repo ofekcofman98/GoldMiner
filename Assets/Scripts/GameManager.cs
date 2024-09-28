@@ -12,7 +12,7 @@ using TMPro;
 public class GameManager : Singleton<GameManager>
 {
     private const string HiScore = "HiScore";
-    private bool isGameOver = false;
+    // private bool isGameOver = false;
 
     [SerializeField] private int _width = 40;
     [SerializeField] private int _height = 12;
@@ -67,7 +67,7 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadLevel(int levelIndex)
     {
-        if (levelIndex < levels.Count)
+        if (CheckForNextLevel(currentLevelIndex))
         {
             Level currentLevel = levels[levelIndex];
             Debug.Log($"Level {levelIndex + 1} starts now!");
@@ -84,7 +84,7 @@ public class GameManager : Singleton<GameManager>
     public void NextLevel()
     {
         currentLevelIndex++;
-        if(currentLevelIndex < levels.Count)
+        if(CheckForNextLevel(currentLevelIndex))
         {
             LevelManager.Instance.ClearItems();
             LoadLevel(currentLevelIndex);
@@ -92,7 +92,13 @@ public class GameManager : Singleton<GameManager>
         else
         {
             Debug.Log("No more levels!");
+            EndGame();
         }
+    }
+
+    public bool CheckForNextLevel(int currentLevelIndex)
+    {
+        return (currentLevelIndex < levels.Count);
     }
 
     private void CreateWalls()
@@ -176,18 +182,16 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
-        if (isGameOver) return;
-
-        isGameOver = true;
+        // isGameOver = true;
         Debug.Log("Game Over!");
-
+        currentLevelIndex = 0;
         if (HiScoreManager.Instance.CheckIfPlayerIsInTopFive())
         {
             MenuManager.Instance.ShowNameEntryPanel();
         }
         else
         {
-            MenuManager.Instance.ShowMainMenu();
+            MenuManager.Instance.ShowGameOverMenu();
         }
         Time.timeScale = 0;
     }

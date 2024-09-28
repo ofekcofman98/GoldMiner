@@ -23,6 +23,7 @@ public class LevelManager : Singleton<LevelManager>
     public void PrepareLevel(Level levelData, GameObject itemPrefab)
     {
         ClearItems();
+        PlayerController.Instance.ResetClawMovement();
         timeRemaining = levelTimeLimit;
         currentLevel = levelData;
         CanvasManager.Instance.UpdateGoalScore(currentLevel.scoreGoal);

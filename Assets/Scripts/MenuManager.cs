@@ -10,6 +10,8 @@ public class MenuManager : Singleton<MenuManager>
     public GameObject levelStartPanel;
     public GameObject pausePanel;
     public GameObject nameEntryPanel;
+    public GameObject BombPanel;
+    public GameObject gameOverPanel;
 
     private List<GameObject> menusList;
     
@@ -21,7 +23,9 @@ public class MenuManager : Singleton<MenuManager>
             topScoresPanel,
             levelStartPanel,
             pausePanel,
-            nameEntryPanel
+            nameEntryPanel,
+            BombPanel,
+            gameOverPanel
         };
 
         ShowMainMenu();
@@ -61,6 +65,18 @@ public class MenuManager : Singleton<MenuManager>
         StopTime();
     }
 
+    public void ShowBombPanel()
+    {
+        ShowMenu(BombPanel);
+        StopTime();
+    }
+
+    public void ShowGameOverMenu()
+    {
+        ShowMenu(gameOverPanel);
+        StopTime();
+    }
+
     public void OnStartGameButtonClicked()
     {
         HideAllMenus();
@@ -96,7 +112,7 @@ public class MenuManager : Singleton<MenuManager>
             HiScoreManager.Instance.UpdatePlayerNameForTopScore(playerName);
             HideAllMenus();
             CanvasManager.Instance.ClearNameInput();
-            ShowMainMenu();
+            ShowTopScoresMenu   ();
         }
         else
         {

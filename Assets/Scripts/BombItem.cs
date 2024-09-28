@@ -15,5 +15,6 @@ public class BombItem : NonGrabbableItem
     public override void Activate()
     {
         Debug.Log("Bomb exploded! Player takes damage.");
+        MenuManager.Instance.ShowBombPanel();
     }
 }

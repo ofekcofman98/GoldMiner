@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba2c2b36a8e0484d8dfb14bafd3fbf6, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  scoreGoal: 1200
+  scoreGoal: 1000
   itemPositions:
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
     position: {x: 0, y: -3.43}

@@ -30,6 +30,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool isRotatingRight;
     private bool isGrabbing;
 
+    private float initialX;
     private float initialY;
     private float initialMoveSpeed;
 
@@ -63,8 +64,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        
-        initialY = /*_claw.*/transform.position.y;
+        initialX = transform.position.x;
+        initialY = transform.position.y;
         initialMoveSpeed = _movingDownSpeed;
         canRotate = true;
         isRotatingRight = true;
@@ -245,6 +246,22 @@ public class PlayerController : Singleton<PlayerController>
     {
         isMovingDown = false;
         Debug.Log("Stopped moving down");
+    }
+
+    public void ResetClawMovement()
+    {
+        transform.position = new Vector3(initialX, initialY, transform.position.z);
+
+        rotationAngle = 0f;
+        transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        
+        _movingDownSpeed = initialMoveSpeed;
+        isMovingDown = false;
+        canRotate = true;
+        isRotatingRight = true;
+        isGrabbing = false;
+
+        ropeRenderer.RenderLine(Vector3.zero, Vector3.zero, false);
     }
 
     public void Grab(Item item)
