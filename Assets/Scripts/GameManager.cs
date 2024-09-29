@@ -12,7 +12,6 @@ using TMPro;
 public class GameManager : Singleton<GameManager>
 {
     private const string HiScore = "HiScore";
-    // private bool isGameOver = false;
 
     [SerializeField] private int _width = 40;
     [SerializeField] private int _height = 12;
