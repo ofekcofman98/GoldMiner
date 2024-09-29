@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: DiamondItemData
   sprite: {fileID: 21300000, guid: df09f432f6cb8ec499ec2d349fa8db17, type: 3}
   size: 0.3
-  Sound: {fileID: 8300000, guid: 88e5fd4334063d74ba7fb5fd3171673f, type: 3}
+  sound: {fileID: 8300000, guid: 88e5fd4334063d74ba7fb5fd3171673f, type: 3}
   score: 200
   weight: 1

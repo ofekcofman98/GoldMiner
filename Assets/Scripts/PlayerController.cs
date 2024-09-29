@@ -54,11 +54,11 @@ public class PlayerController : Singleton<PlayerController>
             Debug.LogError("RopeRenderer component not found on ClawParent!");
         }
 
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        // audioSource = GetComponent<AudioSource>();
+        // if (audioSource == null)
+        // {
+        //     audioSource = gameObject.AddComponent<AudioSource>();
+        // }
 
     }
 
@@ -277,11 +277,12 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-       private void PlayGrabbedItemSound(Item grabbedItem)
+    private void PlayGrabbedItemSound(Item grabbedItem)
     {
-        if (grabbedItem.itemData.Sound != null && audioSource != null)
+        Debug.Log("music to my ear");
+        if (grabbedItem.itemData.sound != null)
         {
-            audioSource.PlayOneShot(grabbedItem.itemData.Sound);
+            AudioManager.Instance.PlaySound(grabbedItem.itemData.sound);
         }
     }
  

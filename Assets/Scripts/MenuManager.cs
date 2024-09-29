@@ -12,6 +12,8 @@ public class MenuManager : Singleton<MenuManager>
     public GameObject nameEntryPanel;
     public GameObject BombPanel;
     public GameObject gameOverPanel;
+    
+    public AudioClip buttonClickSound; 
 
     private List<GameObject> menusList;
     
@@ -30,6 +32,11 @@ public class MenuManager : Singleton<MenuManager>
 
         ShowMainMenu();
     }
+    public void PlayButtonClickSound()
+    {
+        AudioManager.Instance.PlaySound(buttonClickSound);
+    }
+
 
     public void ShowMainMenu()
     {
@@ -79,6 +86,7 @@ public class MenuManager : Singleton<MenuManager>
 
     public void OnStartGameButtonClicked()
     {
+        PlayButtonClickSound();
         HideAllMenus();
         RunTime();
         GameManager.Instance.StartGame();
@@ -86,18 +94,21 @@ public class MenuManager : Singleton<MenuManager>
 
     public void OnTop5ButtonClicked()
     {
+        PlayButtonClickSound();
         HideAllMenus();
         ShowTopScoresMenu();
     }
 
     public void OnExitGameButtonClicked()
     {
+        PlayButtonClickSound();
         HideAllMenus();
         ExitGame();
     }
 
     public void OnLevelStartButtonclicked()
     {
+        PlayButtonClickSound();
         HideMenu(levelStartPanel);
         LevelManager.Instance.StartLevel();
         RunTime();
@@ -105,6 +116,7 @@ public class MenuManager : Singleton<MenuManager>
 
     public void OnSubmutNameButtonClicked()
     {
+        PlayButtonClickSound();
         string playerName = CanvasManager.Instance.GetEnteredName();
 
         if (!string.IsNullOrEmpty(playerName))
@@ -122,6 +134,7 @@ public class MenuManager : Singleton<MenuManager>
 
     public void OnBackButtonClicked()
     {
+        PlayButtonClickSound();
         HideAllMenus();
         ShowMainMenu();
     }

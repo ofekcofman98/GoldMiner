@@ -9,6 +9,10 @@ public class TimeBoosterItem : BoosterItem
 
     public override void Activate()
     {
+        if (this.sound != null)
+        {
+            AudioManager.Instance.PlaySound(this.sound);
+        }
         Debug.Log($"Time booster Activated! {_timeBonus} seconds added.");
         CanvasManager.Instance.ShowTimeBonusText(_timeBonus);
         LevelManager.Instance.AddTime(_timeBonus);
