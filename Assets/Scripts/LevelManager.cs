@@ -9,6 +9,8 @@ using TMPro;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    // manages a single level, including time, items 
+
     [Header("Items")]
     public List<Item> currentItems = new List<Item>();
     public List<Item> grabbableItems = new List<Item>(); 
@@ -17,12 +19,26 @@ public class LevelManager : Singleton<LevelManager>
     public float levelTimeLimit = 60f;
     private float timeRemaining;
     private bool timerRunning = false;
+
+    private Level currentLevel;
     
-    public void StartLevel(Level levelData, GameObject itemPrefab)
+    public void PrepareLevel(Level levelData, GameObject itemPrefab)
     {
         ClearItems();
+        PlayerController.Instance.ResetClawMovement();
         timeRemaining = levelTimeLimit;
+        currentLevel = levelData;
+        CanvasManager.Instance.UpdateGoalScore(currentLevel.scoreGoal);
         LoadItems(levelData, itemPrefab);
+    }
+
+    public void StartLevel()
+    {
+        if (currentLevel == null)
+        {
+            Debug.LogError("Current level is not set!");
+            return;
+        }
         StartTimer();
     }
 
@@ -124,7 +140,36 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
     public void OnTimeUp()
     {
         Debug.Log("Time is up!");
-        FinishLevel();
+
+        if (CheckIfGoalWasAchieved())
+        {
+            FinishLevel();
+        }
+        else
+        {
+            GameManager.Instance.EndGame();
+        }
+    }
+
+    public bool CheckIfGoalWasAchieved()
+    {
+        // if the player achieved the goal score: next level
+        // if not: game over
+        int currentScore = GameManager.Instance.GetCurrentScore();
+        bool isGoalAchieved = false;
+
+        if (currentScore >= currentLevel.scoreGoal)
+        {
+            Debug.Log("Goal achieved!");
+            isGoalAchieved = true;
+        }
+        else
+        {
+            Debug.Log("Goal was not achieved.");
+            isGoalAchieved = false;
+        }
+
+         return isGoalAchieved;  
     }
 
     private void FinishLevel()

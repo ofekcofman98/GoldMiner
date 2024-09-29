@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Claw
   - Item
+  - Menu
+  - Background
+  - Manager
   layers:
   - Default
   - TransparentFX
@@ -42,4 +45,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3038924543
+    locked: 0
+  - name: Tilemap
+    uniqueID: 3035281039
+    locked: 0
+  - name: Items
+    uniqueID: 230842221
+    locked: 0
+  - name: Claw
+    uniqueID: 3845258683
+    locked: 0
+  - name: Rope
+    uniqueID: 2057572241
+    locked: 0
+  - name: UI
+    uniqueID: 769513071
     locked: 0

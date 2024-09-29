@@ -15,5 +15,7 @@ MonoBehaviour:
   itemName: RockSmall
   sprite: {fileID: -484687963, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
   size: 1.2
+  sound: {fileID: 8300000, guid: 172468bd8add8524c9336cb7c2e7e046, type: 3}
   score: 5
   weight: 3.5
+  collectSound: {fileID: 8300000, guid: 0debb2cdbd087c04e8d9eb47cafb0ca7, type: 3}

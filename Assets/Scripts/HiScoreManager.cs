@@ -5,6 +5,8 @@ using UnityEngine;
 public class HiScoreManager : Singleton<HiScoreManager>
 {
     private const int MaxTopScores = 5;
+    private bool isPlayerInTopFive;
+    private int playerPosition;
 
     public struct ScoreEntry
     {
@@ -21,10 +23,11 @@ public class HiScoreManager : Singleton<HiScoreManager>
 
     private List<ScoreEntry> topScores = new List<ScoreEntry>();
 
-    // Start is called before the first frame update
     void Start()
     {
         LoadTopFiveScores();
+        isPlayerInTopFive = false;
+        playerPosition = -1;
     }
 
     public void LoadTopFiveScores()
@@ -50,6 +53,7 @@ public class HiScoreManager : Singleton<HiScoreManager>
 
     public void CheckForTopFive(int currentScore, string playerName)
     {
+        // checks if the current score is in top 5 and put it there
         for (int i = 0; i < topScores.Count; i++)
         {
             if (currentScore > topScores[i].score)
@@ -63,9 +67,35 @@ public class HiScoreManager : Singleton<HiScoreManager>
                 SaveTopFiveScores();
                 Debug.Log($"New score added to top 5: {currentScore} by {playerName}");
                 CanvasManager.Instance.UpdateHiScore(topScores[0].score);
-                break;
+                isPlayerInTopFive = true;
+                playerPosition = i;
+                return;
             }
         }
+
+        isPlayerInTopFive = false;
+    }
+
+    public void UpdatePlayerNameForTopScore(string playerName)
+    {
+        if (isPlayerInTopFive &&
+            playerPosition >= 0 &&
+            playerPosition < topScores.Count)
+        {
+            topScores[playerPosition] = new ScoreEntry(playerName, topScores[playerPosition].score);
+            SaveTopFiveScores();
+        }
+        else
+        {
+            Debug.LogWarning("Player is not in the top 5 or invalid position");
+        }
+        
+    }
+
+
+    public bool CheckIfPlayerIsInTopFive()
+    {
+        return isPlayerInTopFive;
     }
 
     public void ResetTopFiveScores()

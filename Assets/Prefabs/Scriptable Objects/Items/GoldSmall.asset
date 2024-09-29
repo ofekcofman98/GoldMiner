@@ -15,5 +15,7 @@ MonoBehaviour:
   itemName: GoldSmall
   sprite: {fileID: 2110975168, guid: 44e86378b01080343b13e6bac97273d1, type: 3}
   size: 1
-  score: 30
+  sound: {fileID: 8300000, guid: ddcdd04b362991d4ea2395fc118ade32, type: 3}
+  score: 80
   weight: 2
+  collectSound: {fileID: 8300000, guid: 0debb2cdbd087c04e8d9eb47cafb0ca7, type: 3}

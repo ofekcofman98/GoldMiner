@@ -13,6 +13,6 @@ public abstract class BoosterItem : NonGrabbableItem
         Activate();
     }
     
-    public abstract void Activate();
+    public abstract override void Activate();
 
 }

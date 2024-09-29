@@ -10,6 +10,7 @@ public class TimeBoosterItem : BoosterItem
     public override void Activate()
     {
         Debug.Log($"Time booster Activated! {_timeBonus} seconds added.");
+        CanvasManager.Instance.ShowTimeBonusText(_timeBonus);
         LevelManager.Instance.AddTime(_timeBonus);
     }
 

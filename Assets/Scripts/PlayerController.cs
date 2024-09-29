@@ -8,14 +8,11 @@ using UnityEngine.UIElements;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    // [SerializeField] private Rigidbody2D _clawRigidBody;
-    // [SerializeField] private GameObject _claw;
-    [SerializeField] private Transform _clawParentTransform; // Drag ClawParent here in the Inspector
+    [SerializeField] private Transform _clawParentTransform;
     [SerializeField] private float _rotationSpeed = 5f;
     [SerializeField] private float _movingDownSpeed = 3f;
     [SerializeField] private float _movingLeftOrRightSpeed = 1f;
     [SerializeField] private float cableLength = -1f;
-
 
 
     private float minRotationAngle = -55f;
@@ -30,6 +27,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool isRotatingRight;
     private bool isGrabbing;
 
+    private float initialX;
     private float initialY;
     private float initialMoveSpeed;
 
@@ -37,6 +35,7 @@ public class PlayerController : Singleton<PlayerController>
     private Vector3 ropeStartPos;  
 
     Item grabbedItem;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -55,8 +54,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        
-        initialY = /*_claw.*/transform.position.y;
+        initialX = transform.position.x;
+        initialY = transform.position.y;
         initialMoveSpeed = _movingDownSpeed;
         canRotate = true;
         isRotatingRight = true;
@@ -150,6 +149,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void HandleThrust()
     {
+        // when the claw goes down
         if (canRotate) return;
         
         else
@@ -169,7 +169,7 @@ public class PlayerController : Singleton<PlayerController>
 
             transform.position = tempPosition;
 
-            if (tempPosition.y <= cableLength)
+            if (tempPosition.y <= cableLength) // has reached cable length
             {
                 isMovingDown = false;
             }
@@ -179,9 +179,8 @@ public class PlayerController : Singleton<PlayerController>
             {
                 isMovingDown = false;
             }
-            // add touching wall
 
-            if (tempPosition.y >= initialY)
+            if (tempPosition.y >= initialY) // has claw reached initial height 
             {
                 if (isGrabbing && grabbedItem != null)
                 {
@@ -201,6 +200,7 @@ public class PlayerController : Singleton<PlayerController>
             ropeRenderer.RenderLine(ropeStartPos, transform.position, true);
         }
     }
+
 
 
     private void Rotate()
@@ -238,6 +238,22 @@ public class PlayerController : Singleton<PlayerController>
         Debug.Log("Stopped moving down");
     }
 
+    public void ResetClawMovement()
+    {
+        transform.position = new Vector3(initialX, initialY, transform.position.z);
+
+        rotationAngle = 0f;
+        transform.rotation = Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        
+        _movingDownSpeed = initialMoveSpeed;
+        isMovingDown = false;
+        canRotate = true;
+        isRotatingRight = true;
+        isGrabbing = false;
+
+        ropeRenderer.RenderLine(Vector3.zero, Vector3.zero, false);
+    }
+
     public void Grab(Item item)
     {
         isGrabbing = true;
@@ -250,4 +266,6 @@ public class PlayerController : Singleton<PlayerController>
             Debug.Log($"Grabbed {grabbableItem.itemName} with weight: {grabbableItem.weight}.");
         }
     }
+ 
 }
+

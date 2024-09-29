@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BombItem
   m_EditorClassIdentifier: 
   itemName: BombItem
-  itemType: 3
   sprite: {fileID: 21300000, guid: d708846ae44a1514cace4a384ad01e0e, type: 3}
   size: 0.7
+  sound: {fileID: 8300000, guid: 360cbcb99b9e7f24ba1fa449bf8694cc, type: 3}
