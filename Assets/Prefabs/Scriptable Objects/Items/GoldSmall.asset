@@ -18,3 +18,4 @@ MonoBehaviour:
   sound: {fileID: 8300000, guid: ddcdd04b362991d4ea2395fc118ade32, type: 3}
   score: 80
   weight: 2
+  collectSound: {fileID: 8300000, guid: 0debb2cdbd087c04e8d9eb47cafb0ca7, type: 3}

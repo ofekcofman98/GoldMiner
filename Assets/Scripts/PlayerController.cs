@@ -194,7 +194,6 @@ public class PlayerController : Singleton<PlayerController>
             {
                 if (isGrabbing && grabbedItem != null)
                 {
-                    PlayGrabbedItemSound(grabbedItem); 
                     LevelManager.Instance.OnItemDestroyed(grabbedItem);
                     grabbedItem.itemData.Collect();
                     GameManager.Instance.AddScore(grabbedItem);
@@ -274,15 +273,6 @@ public class PlayerController : Singleton<PlayerController>
             float weightModifier = 1 / Mathf.Max(grabbableItem.weight, 1f);
             _movingDownSpeed *= weightModifier;
             Debug.Log($"Grabbed {grabbableItem.itemName} with weight: {grabbableItem.weight}.");
-        }
-    }
-
-    private void PlayGrabbedItemSound(Item grabbedItem)
-    {
-        Debug.Log("music to my ear");
-        if (grabbedItem.itemData.sound != null)
-        {
-            AudioManager.Instance.PlaySound(grabbedItem.itemData.sound);
         }
     }
  

@@ -7,10 +7,11 @@ public class GrabbableItemData : ItemData
 {
     public int score;
     public float weight = 1f;
+    public AudioClip collectSound;
 
     public override void Collect()
     {
-        // Common collection behavior for grabbable items
+        AudioManager.Instance.PlaySound(collectSound);
         Debug.Log($"Collected {itemName} worth {score} points!");
     }
 }

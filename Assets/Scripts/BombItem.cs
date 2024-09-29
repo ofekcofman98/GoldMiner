@@ -14,10 +14,6 @@ public class BombItem : NonGrabbableItem
 
     public override void Activate()
     {
-        if (this.sound != null)
-        {
-            AudioManager.Instance.PlaySound(this.sound);
-        }
         Debug.Log("Bomb exploded! Player takes damage.");
         MenuManager.Instance.ShowBombPanel();
     }

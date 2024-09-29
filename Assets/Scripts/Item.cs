@@ -51,9 +51,10 @@ public class Item : MonoBehaviour
                 return; 
             }
 
+            AudioManager.Instance.PlaySound(itemData.sound);
+            
             if (itemData is GrabbableItemData)
             {
-                // AudioManager.Instance.PlaySound(itemData.sound);
                 GameManager.Instance.OnItemClawCollision(this);
                 clawTransform = other.transform;
                 transform.SetParent(clawTransform);

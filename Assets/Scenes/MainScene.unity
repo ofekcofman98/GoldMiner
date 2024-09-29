@@ -1196,7 +1196,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 599321162}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_MethodName: OnExitGameButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1816,7 +1816,7 @@ MonoBehaviour:
   nameEntryPanel: {fileID: 1938208424}
   BombPanel: {fileID: 2103962307}
   gameOverPanel: {fileID: 1119641550}
-  buttonClickSound: {fileID: 8300000, guid: e412aaf096b4f83459b648b88eee926c, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: ace141b7e768f6042a533cb99f510981, type: 3}
 --- !u!4 &599321163
 Transform:
   m_ObjectHideFlags: 0
@@ -6600,7 +6600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b27040fb03d9149b03b53208719661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 20
+  _width: 12
   _height: 8
   _wallPrefab: {fileID: 4962846721151782694, guid: 33a3f07f14b3e8f42a524bbd96996d50, type: 3}
   itemPrefab: {fileID: 7476205723221826391, guid: 6ab6372d67866b84c8ac66148f486ef3, type: 3}
