@@ -9,6 +9,8 @@ using TMPro;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    // manages a single level, including time, items 
+
     [Header("Items")]
     public List<Item> currentItems = new List<Item>();
     public List<Item> grabbableItems = new List<Item>(); 
@@ -38,7 +40,6 @@ public class LevelManager : Singleton<LevelManager>
             return;
         }
         StartTimer();
-        // MenuManager.Instance.HideMenu();
     }
 
     private void StartTimer()
@@ -152,6 +153,8 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
 
     public bool CheckIfGoalWasAchieved()
     {
+        // if the player achieved the goal score: next level
+        // if not: game over
         int currentScore = GameManager.Instance.GetCurrentScore();
         bool isGoalAchieved = false;
 

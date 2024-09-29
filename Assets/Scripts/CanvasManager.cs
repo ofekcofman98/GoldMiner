@@ -49,7 +49,11 @@ public class CanvasManager : Singleton<CanvasManager>
 
     public void UpdateHiScore(int hiScore)
     {
-        _hiScoreText.text = hiScore.ToString();
+        // _hiScoreText.text = hiScore.ToString();
+        if (_hiScoreText != null)
+        {
+            _hiScoreText.text = $"HiScore: {hiScore}$";
+        }
     }
 
     public void UpdateTopScores()

@@ -42,6 +42,9 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // when the claw collides with items
+        // grabbable item: the claw grabs them
+        // non-grabbable item: the claw doesnt grab them but activate the special effect
         if(other.CompareTag("Claw"))
         {
 
@@ -52,7 +55,7 @@ public class Item : MonoBehaviour
             }
 
             AudioManager.Instance.PlaySound(itemData.sound);
-            
+
             if (itemData is GrabbableItemData)
             {
                 GameManager.Instance.OnItemClawCollision(this);

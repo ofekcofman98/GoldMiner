@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BombItem", menuName = "Items/NonGrabbableItem/Bomb")]
 public class BombItem : NonGrabbableItem
 {
+    // non-grabbable item
     public override void Collect()
     {
         Activate();

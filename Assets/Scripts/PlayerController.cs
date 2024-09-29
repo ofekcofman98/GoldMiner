@@ -8,14 +8,11 @@ using UnityEngine.UIElements;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    // [SerializeField] private Rigidbody2D _clawRigidBody;
-    // [SerializeField] private GameObject _claw;
-    [SerializeField] private Transform _clawParentTransform; // Drag ClawParent here in the Inspector
+    [SerializeField] private Transform _clawParentTransform;
     [SerializeField] private float _rotationSpeed = 5f;
     [SerializeField] private float _movingDownSpeed = 3f;
     [SerializeField] private float _movingLeftOrRightSpeed = 1f;
     [SerializeField] private float cableLength = -1f;
-
 
 
     private float minRotationAngle = -55f;
@@ -53,13 +50,6 @@ public class PlayerController : Singleton<PlayerController>
         {
             Debug.LogError("RopeRenderer component not found on ClawParent!");
         }
-
-        // audioSource = GetComponent<AudioSource>();
-        // if (audioSource == null)
-        // {
-        //     audioSource = gameObject.AddComponent<AudioSource>();
-        // }
-
     }
 
     private void Start()
@@ -159,6 +149,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void HandleThrust()
     {
+        // when the claw goes down
         if (canRotate) return;
         
         else
@@ -178,7 +169,7 @@ public class PlayerController : Singleton<PlayerController>
 
             transform.position = tempPosition;
 
-            if (tempPosition.y <= cableLength)
+            if (tempPosition.y <= cableLength) // has reached cable length
             {
                 isMovingDown = false;
             }
@@ -188,9 +179,8 @@ public class PlayerController : Singleton<PlayerController>
             {
                 isMovingDown = false;
             }
-            // add touching wall
 
-            if (tempPosition.y >= initialY)
+            if (tempPosition.y >= initialY) // has claw reached initial height 
             {
                 if (isGrabbing && grabbedItem != null)
                 {
@@ -210,6 +200,7 @@ public class PlayerController : Singleton<PlayerController>
             ropeRenderer.RenderLine(ropeStartPos, transform.position, true);
         }
     }
+
 
 
     private void Rotate()

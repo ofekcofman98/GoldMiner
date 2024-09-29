@@ -53,6 +53,7 @@ public class HiScoreManager : Singleton<HiScoreManager>
 
     public void CheckForTopFive(int currentScore, string playerName)
     {
+        // checks if the current score is in top 5 and put it there
         for (int i = 0; i < topScores.Count; i++)
         {
             if (currentScore > topScores[i].score)
