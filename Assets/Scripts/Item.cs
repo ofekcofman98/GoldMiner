@@ -55,18 +55,31 @@ public class Item : MonoBehaviour
             }
 
             AudioManager.Instance.PlaySound(itemData.sound);
-
-            if (itemData is GrabbableItemData)
+            if (PlayerController.Instance.IsDrillActive())
             {
-                GameManager.Instance.OnItemClawCollision(this);
-                clawTransform = other.transform;
-                transform.SetParent(clawTransform);
+                CollectAndDestroyItem();
             }
-            else if (itemData is NonGrabbableItem nonGrabbableItem)
+            else
             {
-                PlayerController.Instance.StopClawMovement();
-                itemData.Collect();
-                Destroy(gameObject);
+                if (itemData is GrabbableItemData)
+                {
+                    GameManager.Instance.OnItemClawCollision(this);
+                    clawTransform = other.transform;
+                    transform.SetParent(clawTransform);
+                }
+                else if (itemData is NonGrabbableItem nonGrabbableItem)
+                {
+                    PlayerController.Instance.StopClawMovement();
+                    if (itemData is BoosterItem boosterItem)
+                    {
+                        BoosterManager.Instance.ActivateBooster(boosterItem);
+                    }
+                    else
+                    {
+                        itemData.Collect();
+                    }
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -79,6 +92,30 @@ public class Item : MonoBehaviour
             score = grabbableItem.score;
         }
         return score; // Non-grabbable items don't have a score
+    }
+
+    private void CollectAndDestroyItem()
+    {
+        if (itemData != null)
+        {
+            if (itemData is GrabbableItemData)
+            {
+                GameManager.Instance.AddScore(this);
+            }
+            else if (itemData is NonGrabbableItem nonGrabbableItem)
+            {
+                if (itemData is BoosterItem boosterItem)
+                {
+                    BoosterManager.Instance.ActivateBooster(boosterItem);
+                }
+            } 
+            else
+            {
+                itemData.Collect();
+            }
+            Destroy(gameObject);
+            Debug.Log($"{itemData.itemName} collected by drill.");
+        }
     }
 
 }

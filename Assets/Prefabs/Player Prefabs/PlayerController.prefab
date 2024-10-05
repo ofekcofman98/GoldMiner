@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -449708613
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 35
   m_Sprite: {fileID: 21300000, guid: 35bb652dcd35314459ca7491c2214f95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clawParentTransform: {fileID: 9042954862085331689}
+  _clawSprite: {fileID: 0}
   _rotationSpeed: 50
   _movingDownSpeed: 3
   _movingLeftOrRightSpeed: 1
@@ -277,7 +278,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -449708613
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 25e09a50da4abb245ab54e7c7b34e9ae, type: 3}
   m_Color: {r: 0.4264151, g: 0.24394123, b: 0.09896045, a: 1}
@@ -330,7 +331,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -449708613
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 20
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -420,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clawParentTransform: {fileID: 9042954862085331689}
+  _clawSprite: {fileID: 21300000, guid: 35bb652dcd35314459ca7491c2214f95, type: 3}
   _rotationSpeed: 50
   _movingDownSpeed: 3
   _movingLeftOrRightSpeed: 0.5

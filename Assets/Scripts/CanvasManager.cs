@@ -18,6 +18,10 @@ public class CanvasManager : Singleton<CanvasManager>
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private TextMeshProUGUI _timeBonusText;
     [SerializeField] private TextMeshProUGUI _levelNumberText;
+
+    [SerializeField] private List<Image> _storedItemsImages;
+    [SerializeField] private GameObject _storedItemsPanel;
+
     [SerializeField] private Camera _mainCamera; 
 
     [SerializeField] private TMP_InputField nameInputField; 
@@ -150,6 +154,36 @@ public class CanvasManager : Singleton<CanvasManager>
     {
         yield return new WaitForSeconds(2f);
         i_text.gameObject.SetActive(false);
+    }
+    public void ShowStoredItemsPanel()
+    {
+        _storedItemsPanel.gameObject.SetActive(true);
+    }
+
+    public void HideStoredItemsPanel()
+    {
+        _storedItemsPanel.gameObject.SetActive(false);
+    }
+
+    public void UpdateStoredItemsContainer(List<IBooster> storedItemsList)
+    {
+        foreach (var itemImage in _storedItemsImages)
+        {
+            itemImage.enabled = false;
+            itemImage.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < storedItemsList.Count; i++)
+        {
+            _storedItemsImages[i].gameObject.SetActive(true);
+            Image itemImage = _storedItemsImages[i];
+            itemImage.enabled = true;
+
+            if (storedItemsList[i] is BoosterItem boosterItem)
+            {
+                itemImage.sprite = boosterItem.sprite;
+            }
+        }
     }
 
 
