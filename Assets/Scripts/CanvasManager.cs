@@ -19,6 +19,9 @@ public class CanvasManager : Singleton<CanvasManager>
     [SerializeField] private TextMeshProUGUI _timeBonusText;
     [SerializeField] private TextMeshProUGUI _levelNumberText;
 
+    [SerializeField] private List<Image> _lifeImages;
+    [SerializeField] private GameObject _lifePanel;
+
     [SerializeField] private List<Image> _storedItemsImages;
     [SerializeField] private GameObject _storedItemsPanel;
 
@@ -163,6 +166,34 @@ public class CanvasManager : Singleton<CanvasManager>
     public void HideStoredItemsPanel()
     {
         _storedItemsPanel.gameObject.SetActive(false);
+    }
+
+    public void ShowLifePanel()
+    {
+        _lifePanel.gameObject.SetActive(true);
+    }
+
+    public void HideLifePanel()
+    {
+        _lifePanel.gameObject.SetActive(false);
+    }
+    public void UpdateLife(int currentLife)
+    {
+        foreach (var lifeImage in _lifeImages)
+        {
+            lifeImage.enabled = false;
+            lifeImage.gameObject.SetActive(false);
+        }
+        
+        Sprite lifeSprite = LifeManager.Instance.GetSprite();
+        for (int i = 0; i < currentLife; i++)
+        {
+            _lifeImages[i].gameObject.SetActive(true);
+            Image lifeImage = _lifeImages[i];
+            lifeImage.enabled = true;
+            
+            lifeImage.sprite = lifeSprite;
+        }
     }
 
     public void UpdateStoredItemsContainer(List<IBooster> storedItemsList)

@@ -10,9 +10,7 @@ public class BoosterManager : Singleton<BoosterManager>
 
     private IBooster nextThrustBooster;
     private List<IBooster> storedBoosters = new List<IBooster>();
-    
-    public event Action OnSpeedThrustActivated;
-    
+        
     public void ActivateBooster(IBooster booster)
     {
         if (booster is BoosterItem boosterItem)
@@ -42,9 +40,12 @@ public class BoosterManager : Singleton<BoosterManager>
 
     private void StoreBoosterForLater(IBooster booster)
     {
-        storedBoosters.Add(booster);
-        CanvasManager.Instance.UpdateStoredItemsContainer(storedBoosters);
-        Debug.Log("item stored for later!");
+        if (storedBoosters.Count < 3)
+        {
+            storedBoosters.Add(booster);
+            CanvasManager.Instance.UpdateStoredItemsContainer(storedBoosters);
+            Debug.Log("item stored for later!");
+        }
     }
 
     public void UseStoredBooster(BoosterType boosterType)
@@ -90,20 +91,10 @@ public class BoosterManager : Singleton<BoosterManager>
         }
     }
 
-    public void ProccessNextThrustBooster()
-    {
-        if (nextThrustBooster != null)
-        {
-            nextThrustBooster.Activate();
-            nextThrustBooster = null;
-        }
-    }
-
     public void ApplyingNextThrustBooster()
     {
         if (nextThrustBooster != null)
         {
-            // Debug.Log($"{nextThrustBooster.name} is being applied during this thrust.");
             nextThrustBooster.Activate();
             nextThrustBooster = null;
         }

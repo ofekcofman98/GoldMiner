@@ -31,10 +31,11 @@ public class PlayerController : Singleton<PlayerController>
     private bool v_IsMovingRight;
     private bool v_IsRotatingRight;
     private bool v_IsGrabbing;
-    private bool v_CollectedBoosterThrust;
-    private bool v_IsBoostedThrustActive;
+    // private bool v_CollectedBoosterThrust;
+    // private bool v_IsBoostedThrustActive;
     private bool v_IsDrillActive;
-    private float _boostedSpeed;
+    // private float _boostedSpeed;
+    private bool v_IsNextThrustBoosterActive;
 
     private float initialX;
     private float initialY;
@@ -44,6 +45,7 @@ public class PlayerController : Singleton<PlayerController>
     private Vector3 ropeStartPos;  
 
     Item grabbedItem;
+
 
     private void Awake()
     {
@@ -80,8 +82,8 @@ public class PlayerController : Singleton<PlayerController>
 
         v_CanRotate = true;
         v_IsRotatingRight = true;
-        v_CollectedBoosterThrust = false;
-        v_IsBoostedThrustActive = false;
+        // v_CollectedBoosterThrust = false;
+        // v_IsBoostedThrustActive = false;
         v_IsDrillActive = false;
 
         // BoosterManager.Instance.OnSpeedThrustActivated += ActivateBoostedThrust;
@@ -225,9 +227,10 @@ public class PlayerController : Singleton<PlayerController>
                 if (v_IsGrabbing && grabbedItem != null)
                 {
                     LevelManager.Instance.OnItemDestroyed(grabbedItem);
-                    grabbedItem.itemData.Collect();
-                    GameManager.Instance.AddScore(grabbedItem);
-                    Destroy(grabbedItem.gameObject);
+                    //grabbedItem.itemData.Collect();
+                    //GameManager.Instance.AddScore(grabbedItem);
+                    //Destroy(grabbedItem.gameObject);
+                    grabbedItem.CollectItem();
                     grabbedItem = null;
                     v_IsGrabbing = false;
                     Debug.Log("Item Destroyed!");
@@ -235,10 +238,9 @@ public class PlayerController : Singleton<PlayerController>
 
                 if (v_IsDrillActive)
                 {
-                    v_IsDrillActive = false;
-                    ChangeClawSprite(_clawSprite);
-                    clawCollider.radius = originalColliderRadius;
+                    SetClawBackToInitial();
                 }
+
                 v_CanRotate = true;
                 ropeRenderer.RenderLine(ropeStartPos, tempPosition, false);  // Disable rope rendering once claw reaches top
                 _movingDownSpeed = initialMoveSpeed;
@@ -248,6 +250,18 @@ public class PlayerController : Singleton<PlayerController>
 
             ropeRenderer.RenderLine(ropeStartPos, transform.position, true);
         }
+    }
+
+    private bool CheckForNextThrustBoosterNow()
+    {
+        return v_IsNextThrustBoosterActive;
+    }
+
+    public void SetClawBackToInitial()
+    {
+        v_IsDrillActive = false;
+        ChangeClawSprite(_clawSprite);
+        clawCollider.radius = originalColliderRadius;
     }
 
     private void Rotate()
@@ -328,9 +342,10 @@ public class PlayerController : Singleton<PlayerController>
         if (booster is SpeedBoosterItem speedBooster)
         {
             _movingDownSpeed = speedBooster.GetSpeedBoost();
-            v_IsBoostedThrustActive = true;
+            // v_IsBoostedThrustActive = true;
         }
     }
+    
     public void ChangeClawSprite(Sprite sprite)
     {
         if (clawSpriteRenderer != null)
@@ -358,5 +373,11 @@ public class PlayerController : Singleton<PlayerController>
     {
         return v_IsDrillActive;
     }
+
+    internal void ActivateAimingBooster()
+    {
+        Debug.Log("dsf");
+    }
+
 }
 

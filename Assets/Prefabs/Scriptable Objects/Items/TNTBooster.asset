@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: TNTBooster
   sprite: {fileID: 21300000, guid: 0724b434df5026b4ea44c56a1c6c3ce7, type: 3}
   size: 0.6
-  sound: {fileID: 0}
-  _explosionSound: {fileID: 0}
+  sound: {fileID: 8300000, guid: 12e4f3b17fde3014bba69128c7116946, type: 3}
+  _explosionSound: {fileID: 8300000, guid: c2df77ca81b69464bad506dbad5e4528, type: 3}

@@ -58,6 +58,7 @@ public class MenuManager : Singleton<MenuManager>
         CanvasManager.Instance.UpdateLevelNumberText(levelNumber);
         CanvasManager.Instance.UpdateGoalScoreInLevelStartMenu(goalScore);
         CanvasManager.Instance.HideStoredItemsPanel();
+        CanvasManager.Instance.HideLifePanel();
         StopTime();
     }
 

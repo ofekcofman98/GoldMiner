@@ -11,7 +11,10 @@ public class Item : MonoBehaviour
     private Transform clawTransform; 
 
     public bool AlreadyDestroyed {get; set;}
-
+    
+    // public delegate void ItemCollectedHandler(Item item);
+    // public static event ItemCollectedHandler OnItemCollected;
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -36,7 +39,48 @@ public class Item : MonoBehaviour
         // Setting sprite and size based on ItemData
         spriteRenderer.sprite = itemData.sprite;
         transform.localScale = new Vector3(itemData.size, itemData.size, 1);
+
+        // SetColliderBasedOnSprite();
     }
+
+    // public void SetColliderBasedOnSprite()
+    // {
+    //     // Try to get the CircleCollider2D component
+    //     CircleCollider2D collider = GetComponent<CircleCollider2D>();
+
+    //     // If no collider exists, add one
+    //     if (collider == null)
+    //     {
+    //         Debug.Log("No CircleCollider2D found on the item. Adding a new one.");
+    //         collider = gameObject.AddComponent<CircleCollider2D>();
+    //         collider.isTrigger = true;
+    //     }
+
+    //     // Ensure the itemData and spriteRenderer are initialized
+    //     if (itemData == null || spriteRenderer == null)
+    //     {
+    //         Debug.LogError("ItemData or SpriteRenderer is not assigned properly.");
+    //         return;
+    //     }
+
+    //     // Get the bounds of the sprite and calculate the radius
+    //     float spriteWidth = spriteRenderer.bounds.size.x;
+    //     float spriteHeight = spriteRenderer.bounds.size.y;
+    //     float maxDimension = Mathf.Max(spriteWidth, spriteHeight);
+
+    //     // Use the colliderScaleFactor from itemData if it's set properly
+    //     float scaleFactor = itemData.colliderScaleFactor;
+
+    //     // Set the radius based on the max dimension of the sprite, adjusting with the scale factor
+    //     collider.radius = maxDimension * scaleFactor * 0.3f;
+
+    //     // Optionally, set the offset based on itemData if necessary
+    //     collider.offset = new Vector2(0, -0.14f); // Example offset, adjust as needed
+
+    //     // Log for debugging
+    //     Debug.Log($"Collider set with radius: {collider.radius} for item: {itemData.itemName}");
+    // }
+
 
 
 
@@ -55,34 +99,78 @@ public class Item : MonoBehaviour
             }
 
             AudioManager.Instance.PlaySound(itemData.sound);
+
             if (PlayerController.Instance.IsDrillActive())
             {
-                CollectAndDestroyItem();
+                CollectItem();
             }
             else
             {
-                if (itemData is GrabbableItemData)
-                {
-                    GameManager.Instance.OnItemClawCollision(this);
-                    clawTransform = other.transform;
-                    transform.SetParent(clawTransform);
-                }
-                else if (itemData is NonGrabbableItem nonGrabbableItem)
-                {
-                    PlayerController.Instance.StopClawMovement();
-                    if (itemData is BoosterItem boosterItem)
-                    {
-                        BoosterManager.Instance.ActivateBooster(boosterItem);
-                    }
-                    else
-                    {
-                        itemData.Collect();
-                    }
-                    Destroy(gameObject);
-                }
+                HandleItemCollision(other.transform);
             }
+
+
         }
     }
+
+    public void HandleItemCollision(Transform clawTransform)
+    {
+        if (itemData is GrabbableItemData)
+        {
+            GameManager.Instance.OnItemClawCollision(this);
+            this.clawTransform = clawTransform;
+            transform.SetParent(clawTransform);
+        }
+        else if (itemData is NonGrabbableItem)
+        {
+            PlayerController.Instance.StopClawMovement();
+            
+            if (itemData is ChestItem chestItem)
+            {
+                return;
+            }
+
+            if (itemData is BoosterItem boosterItem)
+            {
+                BoosterManager.Instance.ActivateBooster(boosterItem);
+            }
+            else
+            {
+                itemData.Collect();
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    public void CollectItem()
+    {
+        if (itemData != null)
+        {
+            if (itemData is GrabbableItemData)
+            {
+                GameManager.Instance.AddScore(this);
+                itemData.Collect();
+            }
+            else if (itemData is NonGrabbableItem)
+            {
+                if (itemData is BoosterItem boosterItem)
+                {
+                    BoosterManager.Instance.ActivateBooster(boosterItem);
+                }
+
+                if (itemData is BombItem bombItem)
+                {
+                    bombItem.Activate();
+                }
+            }
+
+            Destroy(gameObject);
+
+            // OnItemCollected?.Invoke(this);
+        }
+    }
+
 
     public int GetScore()
     {
@@ -94,28 +182,5 @@ public class Item : MonoBehaviour
         return score; // Non-grabbable items don't have a score
     }
 
-    private void CollectAndDestroyItem()
-    {
-        if (itemData != null)
-        {
-            if (itemData is GrabbableItemData)
-            {
-                GameManager.Instance.AddScore(this);
-            }
-            else if (itemData is NonGrabbableItem nonGrabbableItem)
-            {
-                if (itemData is BoosterItem boosterItem)
-                {
-                    BoosterManager.Instance.ActivateBooster(boosterItem);
-                }
-            } 
-            else
-            {
-                itemData.Collect();
-            }
-            Destroy(gameObject);
-            Debug.Log($"{itemData.itemName} collected by drill.");
-        }
-    }
 
 }

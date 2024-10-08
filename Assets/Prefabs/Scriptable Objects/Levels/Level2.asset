@@ -15,46 +15,76 @@ MonoBehaviour:
   scoreGoal: 1000
   itemPositions:
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 0, y: -3.43}
+    position: {x: -6.73, y: -2.51}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: -2.11, y: -3.43}
+    position: {x: -3.63, y: -2.27}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 1.95, y: -3.43}
+    position: {x: -1.05, y: -2.9}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: -5.86, y: -3.43}
+    position: {x: 1.65, y: -2.61}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 6.07, y: -3.43}
-  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
-    position: {x: 4.74, y: -2.13}
-  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
-    position: {x: 1.09, y: -2.61}
-  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
-    position: {x: -0.98, y: -3.08}
-  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
-    position: {x: -7.68, y: -2.25}
+    position: {x: 3.66, y: -3.04}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 6.33, y: -2.72}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 8.64, y: -2.72}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: 8.07, y: -1.39}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: 5.61, y: -0.88}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: 3.2, y: -1.45}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: -1.73, y: -1.36}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: -5.85, y: -0.77}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: -3.75, y: -1.17}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 0.49, y: -1.43}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 4.64, y: -2.01}
   - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
-    position: {x: -4.06, y: -2.69}
-  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
-    position: {x: -4.71, y: -1.57}
-  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
-    position: {x: -1.15, y: -1.57}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 3.73, y: -0.35}
-  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
-    position: {x: 2.47, y: -1.92}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 6.85, y: -1.92}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: -2.71, y: -0.12}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 0.87, y: -0.63}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: 2.24, y: -0.96}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: -2.68, y: -1.63}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: -6.21, y: -1.04}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: 7.55, y: -0.81}
+    position: {x: 4.3, y: -0.69}
   - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
-    position: {x: 5.59, y: -1.43}
+    position: {x: 1.58, y: -0.69}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -5.26, y: -2.02}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -4.62, y: 0.36}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -2.38, y: 0.04}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -0.02, y: -0.14}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: 1.55, y: 0.47}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: 3.23, y: 0.2}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: 6.71, y: 0.26}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: 7.89, y: 0.11}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: -1.15, y: -0.21}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: -7.01, y: -0.21}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
+    position: {x: -3.54, y: -0.21}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
+    position: {x: 6.8, y: -1.41}
+  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
+    position: {x: 0.26, y: -2.58}
+  - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
+    position: {x: -0.59, y: -1.68}
+  - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
+    position: {x: 4.45, y: 0.64}
+  - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
+    position: {x: -0.85, y: 1}
+  - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
+    position: {x: -5.93, y: 1}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -2.13, y: -2.56}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 1.83, y: -1.46}
+  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
+    position: {x: -6.93, y: -1.46}

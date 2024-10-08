@@ -30,6 +30,7 @@ public class GameManager : Singleton<GameManager>
     public List<Level> levels;
 
     private int currentLevelIndex = 0;
+    private int currentLifeNumber;
 
     internal int RightBorder => (_width / 2) + 1;
     internal int LeftBorder => -1 * (_width / 2 + 1);
@@ -52,6 +53,9 @@ public class GameManager : Singleton<GameManager>
         CreateWalls();
         _hiScore = PlayerPrefs.GetInt(HiScore, 0);
         _currentScore = 0;
+
+        LifeManager.Instance.SetLifeNumberToMax();
+        LifeManager.Instance.ShowLifeOnScreen();
 
         LoadLevel(currentLevelIndex);
 
@@ -115,37 +119,6 @@ public class GameManager : Singleton<GameManager>
         wall.transform.localScale = new Vector3(height, width, 0);
     }
 
-    void SpawnItem(ItemData itemData, Vector2 position)
-    {
-        if(itemPrefab == null)
-        {
-            Debug.LogError("ItemPrefab is not assigned!");
-            return;
-        }
-        if(itemData == null)
-        {
-            Debug.LogError("itemData is null!");
-            return;
-        }
-
-        GameObject newItem = Instantiate(itemPrefab, position, Quaternion.identity);
-        newItem.transform.position = position;
-        Item itemComponent = newItem.GetComponent<Item>();
-        
-        if (itemComponent != null)
-        {
-            itemComponent.itemData = itemData;
-            itemComponent.Initialize();
-            Debug.Log($"Spawned item: {itemData.itemName} at position {position}"); 
-            newItem.SetActive(true);
-        }
-            else
-        {
-            Debug.LogError("Item component not found on instantiated prefab!");
-        }
-
-    }
-
     public void OnItemClawCollision(Item item)
     {
         PlayerController.Instance.StopClawMovement();
@@ -193,6 +166,7 @@ public class GameManager : Singleton<GameManager>
             MenuManager.Instance.ShowGameOverMenu();
         }
         Time.timeScale = 0;
+        PlayerController.Instance.SetClawBackToInitial();
     }
 
     private void ClearCurrentItems()

@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: DrillBooster
   sprite: {fileID: 21300000, guid: 188fecde4225c324dba36d8b743b4613, type: 3}
   size: 1.2
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: 12e4f3b17fde3014bba69128c7116946, type: 3}
   _drillSprite: {fileID: 21300000, guid: 6e6e19ce460f6474b886bece53f49ccb, type: 3}

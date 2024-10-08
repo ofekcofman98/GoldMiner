@@ -39,8 +39,9 @@ public class LevelManager : Singleton<LevelManager>
             Debug.LogError("Current level is not set!");
             return;
         }
-        
+
         CanvasManager.Instance.ShowStoredItemsPanel();
+        CanvasManager.Instance.ShowLifePanel();
         StartTimer();
     }
 

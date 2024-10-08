@@ -51,10 +51,18 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
     position: {x: 0.6, y: 0.58}
   - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
-    position: {x: 2.7, y: 0.58}
+    position: {x: 2.7, y: -0.23}
   - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
     position: {x: -0.77, y: 0.58}
   - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
-    position: {x: -4.01, y: 0.58}
+    position: {x: -4.01, y: 0.89}
   - itemData: {fileID: 11400000, guid: 8035fac39b168ca4eaecb609b79a6129, type: 2}
     position: {x: -2.22, y: 1.63}
+  - itemData: {fileID: 11400000, guid: f440859baaf0ce94b96d5430441cb280, type: 2}
+    position: {x: 2.5, y: 1.36}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 1.42, y: 1.15}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -1.41, y: 1.15}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -0.05, y: 1.15}
