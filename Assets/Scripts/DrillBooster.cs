@@ -14,7 +14,7 @@ public class DrillBooster : BoosterItem
     public override void Activate()
     {
         Debug.Log("Driller!!!");
-        PlayerController.Instance.SetDrillActive();
+        BoosterManager.Instance.ActivateDrill();
         PlayerController.Instance.ChangeClawSprite(_drillSprite);
         PlayerController.Instance.IncreaseColliderSizeForDrill(1.5f);
     }

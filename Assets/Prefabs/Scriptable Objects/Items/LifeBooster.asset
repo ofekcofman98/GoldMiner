@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a26d6d49ceeaa84a98ddf36b57ea115, type: 3}
-  m_Name: SpeedBooster
+  m_Script: {fileID: 11500000, guid: 94c6b4b3effd6d645abed3517b07a2a5, type: 3}
+  m_Name: LifeBooster
   m_EditorClassIdentifier: 
-  itemName: SpeedBooster
-  sprite: {fileID: 21300000, guid: 25df4f90501bab743b7eb67ae4a1f4b2, type: 3}
+  itemName: LifeBooster
+  sprite: {fileID: 21300000, guid: d9eabdd2883131445b84f1140a44884b, type: 3}
   size: 0.7
-  sound: {fileID: 8300000, guid: 12e4f3b17fde3014bba69128c7116946, type: 3}
-  _speed: 10
+  sound: {fileID: 0}
+  _lifeToAdd: 1

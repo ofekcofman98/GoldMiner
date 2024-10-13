@@ -28,7 +28,10 @@ public class LevelManager : Singleton<LevelManager>
         PlayerController.Instance.ResetClawMovement();
         timeRemaining = levelTimeLimit;
         currentLevel = levelData;
-        CanvasManager.Instance.UpdateGoalScore(currentLevel.scoreGoal);
+        
+        int cumulativeScoreGoal = GameManager.Instance.GetCumulativeScoreGoal();
+        CanvasManager.Instance.UpdateGoalScore(cumulativeScoreGoal);
+        
         LoadItems(levelData, itemPrefab);
     }
 
@@ -161,7 +164,7 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
         int currentScore = GameManager.Instance.GetCurrentScore();
         bool isGoalAchieved = false;
 
-        if (currentScore >= currentLevel.scoreGoal)
+        if (currentScore >= GameManager.Instance.GetCumulativeScoreGoal())
         {
             Debug.Log("Goal achieved!");
             isGoalAchieved = true;

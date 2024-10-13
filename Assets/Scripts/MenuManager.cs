@@ -52,11 +52,16 @@ public class MenuManager : Singleton<MenuManager>
         StopTime();
     }
 
-    public void ShowLevelStartPanel(int levelNumber, int goalScore)
+    public void ShowLevelStartPanel(int levelNumber, int goalScore, string levelComment)
     {
         ShowMenu(levelStartPanel);
         CanvasManager.Instance.UpdateLevelNumberText(levelNumber);
-        CanvasManager.Instance.UpdateGoalScoreInLevelStartMenu(goalScore);
+        
+        int cumulativeScoreGoal = GameManager.Instance.GetCumulativeScoreGoal();
+        CanvasManager.Instance.UpdateGoalScoreInLevelStartMenu(cumulativeScoreGoal);
+
+        CanvasManager.Instance.UpdateLevelComment(levelComment);
+        
         CanvasManager.Instance.HideStoredItemsPanel();
         CanvasManager.Instance.HideLifePanel();
         StopTime();
@@ -83,6 +88,8 @@ public class MenuManager : Singleton<MenuManager>
     public void ShowGameOverMenu()
     {
         ShowMenu(gameOverPanel);
+        CanvasManager.Instance.HideLifePanel();
+        CanvasManager.Instance.HideStoredItemsPanel();
         StopTime();
     }
 
@@ -151,6 +158,8 @@ public class MenuManager : Singleton<MenuManager>
 
     private void HideAllMenus()
     {
+        CanvasManager.Instance.HideLifePanel();
+        CanvasManager.Instance.HideStoredItemsPanel();
         foreach (var menu in menusList)
         {
             if (menu != null)

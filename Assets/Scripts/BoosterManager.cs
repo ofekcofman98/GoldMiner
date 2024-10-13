@@ -10,7 +10,14 @@ public class BoosterManager : Singleton<BoosterManager>
 
     private IBooster nextThrustBooster;
     private List<IBooster> storedBoosters = new List<IBooster>();
+
+    private bool v_IsDrillActive;
         
+    private void Start()
+    {
+        v_IsDrillActive = false;
+    }
+
     public void ActivateBooster(IBooster booster)
     {
         if (booster is BoosterItem boosterItem)
@@ -77,6 +84,21 @@ public class BoosterManager : Singleton<BoosterManager>
         return isStored;
     }
 
+    public void ActivateDrill()
+    {
+        v_IsDrillActive = true;
+    }
+
+    public void InactivateDrill()
+    {
+        v_IsDrillActive = false;
+    }
+
+    public bool IsDrillActive()
+    {
+        return v_IsDrillActive;
+    }
+
     public void UseStoredTNTBooster()
     {
         for (int i = 0; i < storedBoosters.Count; i++)
@@ -95,8 +117,19 @@ public class BoosterManager : Singleton<BoosterManager>
     {
         if (nextThrustBooster != null)
         {
+            PlayerController.Instance.ActivateNextThrustBooster();
             nextThrustBooster.Activate();
             nextThrustBooster = null;
         }
     }
+
+    public void ClearAllStoredBoosters()
+    {
+        storedBoosters.Clear();
+        CanvasManager.Instance.UpdateStoredItemsContainer(storedBoosters);
+        Debug.Log("All stored boosters cleared.");
+    }
+
+
+    
 }

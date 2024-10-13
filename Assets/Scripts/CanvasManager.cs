@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 
 public class CanvasManager : Singleton<CanvasManager>
@@ -18,6 +19,7 @@ public class CanvasManager : Singleton<CanvasManager>
     [SerializeField] private TextMeshProUGUI _timerText;
     [SerializeField] private TextMeshProUGUI _timeBonusText;
     [SerializeField] private TextMeshProUGUI _levelNumberText;
+    [SerializeField] private TextMeshProUGUI _levelCommentText; 
 
     [SerializeField] private List<Image> _lifeImages;
     [SerializeField] private GameObject _lifePanel;
@@ -82,11 +84,11 @@ public class CanvasManager : Singleton<CanvasManager>
         }
     }
 
-    public void UpdateGoalScore(int goalScore)
+    public void UpdateGoalScore(int cumulativeScoreGoal)
     {
         if (_goalScoreText != null)
         {
-            _goalScoreText.text = $"Goal: {goalScore}$";
+            _goalScoreText.text = $"Goal: {cumulativeScoreGoal}$";
         }
     }
 
@@ -105,6 +107,15 @@ public class CanvasManager : Singleton<CanvasManager>
             _levelNumberText.text = $"Level Number {levelNumber}";
         }
     }
+
+    public void UpdateLevelComment(string comment)
+    {
+        if (_levelCommentText != null)
+        {
+            _levelCommentText.text = comment;
+        }
+    }
+
 
     public void UpdateTimerText(float timeToDisplay)
     {
@@ -184,7 +195,7 @@ public class CanvasManager : Singleton<CanvasManager>
             lifeImage.enabled = false;
             lifeImage.gameObject.SetActive(false);
         }
-        
+
         Sprite lifeSprite = LifeManager.Instance.GetSprite();
         for (int i = 0; i < currentLife; i++)
         {

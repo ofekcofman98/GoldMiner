@@ -100,7 +100,7 @@ public class Item : MonoBehaviour
 
             AudioManager.Instance.PlaySound(itemData.sound);
 
-            if (PlayerController.Instance.IsDrillActive())
+            if (BoosterManager.Instance.IsDrillActive())
             {
                 CollectItem();
             }

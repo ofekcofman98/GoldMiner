@@ -33,7 +33,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool v_IsGrabbing;
     // private bool v_CollectedBoosterThrust;
     // private bool v_IsBoostedThrustActive;
-    private bool v_IsDrillActive;
+    // private bool v_IsDrillActive;
     // private float _boostedSpeed;
     private bool v_IsNextThrustBoosterActive;
 
@@ -43,6 +43,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private RopeRenderer ropeRenderer;
     private Vector3 ropeStartPos;  
+    private LineRenderer clawLineRenderer;
 
     Item grabbedItem;
 
@@ -84,9 +85,19 @@ public class PlayerController : Singleton<PlayerController>
         v_IsRotatingRight = true;
         // v_CollectedBoosterThrust = false;
         // v_IsBoostedThrustActive = false;
-        v_IsDrillActive = false;
+        // v_IsDrillActive = false;
+        v_IsNextThrustBoosterActive = false;
+        StartLineRendering();
 
         // BoosterManager.Instance.OnSpeedThrustActivated += ActivateBoostedThrust;
+    }
+
+    private void StartLineRendering()
+    {
+        clawLineRenderer = transform.Find("Claw").GetComponent<LineRenderer>();
+        clawLineRenderer.positionCount = 2; 
+        clawLineRenderer.enabled = false;
+
     }
     private void Update()
     {
@@ -117,6 +128,7 @@ public class PlayerController : Singleton<PlayerController>
                 v_IsMovingDown = true;
                 v_IsMovingRightOrLeft = false;
 
+                clawLineRenderer.enabled = false;
                 ropeRenderer.RenderLine(ropeStartPos, transform.position, true);        
             }
         }
@@ -227,19 +239,18 @@ public class PlayerController : Singleton<PlayerController>
                 if (v_IsGrabbing && grabbedItem != null)
                 {
                     LevelManager.Instance.OnItemDestroyed(grabbedItem);
-                    //grabbedItem.itemData.Collect();
-                    //GameManager.Instance.AddScore(grabbedItem);
-                    //Destroy(grabbedItem.gameObject);
                     grabbedItem.CollectItem();
                     grabbedItem = null;
                     v_IsGrabbing = false;
                     Debug.Log("Item Destroyed!");
                 }
 
-                if (v_IsDrillActive)
+                if (v_IsNextThrustBoosterActive)//v_IsDrillActive)
                 {
                     SetClawBackToInitial();
                 }
+
+                
 
                 v_CanRotate = true;
                 ropeRenderer.RenderLine(ropeStartPos, tempPosition, false);  // Disable rope rendering once claw reaches top
@@ -257,9 +268,25 @@ public class PlayerController : Singleton<PlayerController>
         return v_IsNextThrustBoosterActive;
     }
 
+    public void ActivateNextThrustBooster()
+    {
+        v_IsNextThrustBoosterActive = true;
+    }
+    public void InactivateNextThrustBooster()
+    {
+        v_IsNextThrustBoosterActive = false;
+    }
+
+
+
     public void SetClawBackToInitial()
     {
-        v_IsDrillActive = false;
+        // v_IsDrillActive = false;
+        if (BoosterManager.Instance.IsDrillActive())
+        {
+            BoosterManager.Instance.InactivateDrill();
+        }
+        InactivateNextThrustBooster();
         ChangeClawSprite(_clawSprite);
         clawCollider.radius = originalColliderRadius;
     }
@@ -290,6 +317,8 @@ public class PlayerController : Singleton<PlayerController>
         {
             v_IsRotatingRight = true;
         }
+
+        UpdateAimingLine(); 
     }
     
     public void StopClawMovement()
@@ -364,19 +393,38 @@ public class PlayerController : Singleton<PlayerController>
     }
 
 
-    internal void SetDrillActive()
-    {
-        v_IsDrillActive = true;
-    }
+    // internal void SetDrillActive()
+    // {
+    //     v_IsDrillActive = true;
+    // }
 
-    internal bool IsDrillActive()
-    {
-        return v_IsDrillActive;
-    }
+    // internal bool IsDrillActive()
+    // {
+    //     return v_IsDrillActive;
+    // }
 
     internal void ActivateAimingBooster()
     {
-        Debug.Log("dsf");
+        Debug.Log("Aiming Booster Activated!");
+        v_IsNextThrustBoosterActive = true;
+        if (clawLineRenderer != null)
+        {
+            clawLineRenderer.enabled = true;
+        }
+    }
+
+    private void UpdateAimingLine()
+    {
+        if (clawLineRenderer != null && clawLineRenderer.enabled) 
+        {
+            clawLineRenderer.SetPosition(0, transform.position);
+            Vector3 direction = transform.up;
+            float lineLength = -10f; 
+            float line_width = 0.05f;
+            clawLineRenderer.startWidth = line_width;
+            Vector3 endPosition = transform.position + direction * lineLength;
+            clawLineRenderer.SetPosition(1, endPosition);
+        }
     }
 
 }

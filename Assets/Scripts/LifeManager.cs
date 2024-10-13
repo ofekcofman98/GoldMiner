@@ -16,9 +16,16 @@ public class LifeManager : Singleton<LifeManager>
 
     public void IncreaseLife(int numberOfLifesToAdd)
     {
-        _currentLifeNumber += numberOfLifesToAdd;
-        Debug.Log($"life increased by {numberOfLifesToAdd}. current life: {_currentLifeNumber}");
-        ShowLifeOnScreen();
+        if (_currentLifeNumber + numberOfLifesToAdd <= _lifeNumber)
+        {
+            _currentLifeNumber += numberOfLifesToAdd;
+            Debug.Log($"life increased by {numberOfLifesToAdd}. current life: {_currentLifeNumber}");
+            ShowLifeOnScreen();
+        }
+        else
+        {
+            Debug.Log("You have reached max number of lives");
+        }
     }
 
     public void DecreaseLife(int numberOfLifesToDecrease)

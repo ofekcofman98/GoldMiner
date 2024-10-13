@@ -14,7 +14,6 @@ public class AimingBooster : BoosterItem, IBooster
     {
         Debug.Log("Aiming is ON!");
         PlayerController.Instance.ActivateAimingBooster();
-
     }
 
 }

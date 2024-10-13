@@ -6,6 +6,7 @@ using UnityEngine;
 public class Level : ScriptableObject
 {
     public int scoreGoal;
+    public string comment;
     public ItemPosition[] itemPositions;
 
 }

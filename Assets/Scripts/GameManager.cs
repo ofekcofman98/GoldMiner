@@ -30,6 +30,8 @@ public class GameManager : Singleton<GameManager>
     public List<Level> levels;
 
     private int currentLevelIndex = 0;
+    private int _cumulativeScoreGoal = 0;
+
     private int currentLifeNumber;
 
     internal int RightBorder => (_width / 2) + 1;
@@ -59,6 +61,7 @@ public class GameManager : Singleton<GameManager>
 
         LoadLevel(currentLevelIndex);
 
+        BoosterManager.Instance.ClearAllStoredBoosters();
         List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
         
         if (topScores.Count > 0)
@@ -73,8 +76,11 @@ public class GameManager : Singleton<GameManager>
         if (CheckForNextLevel(currentLevelIndex))
         {
             Level currentLevel = levels[levelIndex];
+            Debug.Log($"score goal: {currentLevel.scoreGoal}");
+            
+            _cumulativeScoreGoal += currentLevel.scoreGoal;
             Debug.Log($"Level {levelIndex + 1} starts now!");
-            MenuManager.Instance.ShowLevelStartPanel(levelIndex + 1, currentLevel.scoreGoal);
+            MenuManager.Instance.ShowLevelStartPanel(levelIndex + 1, _cumulativeScoreGoal, currentLevel.comment);
             LevelManager.Instance.PrepareLevel(currentLevel, itemPrefab);
         }
         else
@@ -103,6 +109,12 @@ public class GameManager : Singleton<GameManager>
     {
         return (currentLevelIndex < levels.Count);
     }
+
+    public int GetCumulativeScoreGoal()
+    {
+        return _cumulativeScoreGoal;
+    }
+
 
     private void CreateWalls()
     {
@@ -157,6 +169,7 @@ public class GameManager : Singleton<GameManager>
         // isGameOver = true;
         Debug.Log("Game Over!");
         currentLevelIndex = 0;
+        _cumulativeScoreGoal = 0;
         if (HiScoreManager.Instance.CheckIfPlayerIsInTopFive())
         {
             MenuManager.Instance.ShowNameEntryPanel();
