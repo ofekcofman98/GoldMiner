@@ -12,66 +12,220 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba2c2b36a8e0484d8dfb14bafd3fbf6, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
-  scoreGoal: 1400
-  comment: use speed booster to grab heavy items faster!
+  scoreGoal: 4000
+  comment: Drill them all!
   itemPositions:
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: -3.1, y: 0.08}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: -1.01, y: -0.92}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: 1.03, y: -0.35}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: -4.88, y: -0.35}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: 3.56, y: -0.35}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: -6.16, y: 1.23}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: 5.28, y: 1.23}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: 2.46, y: 0.72}
-  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
-    position: {x: -1.89, y: 0.72}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 0.54, y: -1.58}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 4.98, y: -1.1}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: -3.65, y: -1.58}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: -6.17, y: -1.06}
-  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
-    position: {x: 2.68, y: -1.06}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: 2.24, y: -0.55}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: -2.13, y: -0.89}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: -4.16, y: 0.82}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: 0.33, y: 0.37}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: 3.94, y: 0.68}
-  - itemData: {fileID: 11400000, guid: 78b3c3c040c25f8408ac2913f3c297f6, type: 2}
-    position: {x: 6.64, y: 0.04}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 5.11, y: -1.85}
+    position: {x: 3.5, y: -3.2}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 2.8, y: -1.85}
+    position: {x: 4.28, y: -3.03}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: 0.57, y: -2.39}
+    position: {x: 3.61, y: -2.65}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: -4.01, y: -2.39}
+    position: {x: 3.07, y: -2.2}
   - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
-    position: {x: -6.61, y: -1.91}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: -5.12, y: -1.91}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: -1.31, y: -2.23}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: 3.73, y: -1.5}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: 6.84, y: -1.5}
-  - itemData: {fileID: 11400000, guid: d5cb2bb381e5a904a8fa70c6093ef198, type: 2}
-    position: {x: -6.86, y: -0.02}
+    position: {x: 4.05, y: -2.19}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 3.35, y: -1.47}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 2.31, y: -1.27}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 3.34, y: -0.61}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 2.62, y: -0.27}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 1.91, y: -0.29}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 2.11, y: 0.33}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: 1.48, y: 1.39}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 1.7, y: 0.64}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: 3.47, y: 1.69}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: 2.43, y: 1.26}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 0.85, y: -3.07}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 1.47, y: -3.19}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 1.47, y: -2.2}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 0.81, y: -2.2}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 0.81, y: -1.47}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 1.38, y: -1.48}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 0.3, y: -1.11}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 1.03, y: -0.66}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 0.36, y: -0.38}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 0.83, y: 0.19}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: 0.25, y: 0.52}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: 0.56, y: 1.23}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 2.16, y: -2.87}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 2.16, y: -2.35}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -0.4, y: -2.78}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -0.02, y: -2.99}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 0.18, y: -2.51}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -0.99, y: -2.79}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -0.99, y: -2.02}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -0.35, y: -1.45}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -0.15, y: -2.32}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -0.71, y: -0.94}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -0.29, y: -0.58}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -0.87, y: -0.27}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: -0.61, y: 0.31}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: -1.1, y: 1.49}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: -2.02, y: 1.13}
+  - itemData: {fileID: 11400000, guid: 79c40e09a69ed924ebc8445d5b6c22c4, type: 2}
+    position: {x: -0.31, y: 1.13}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -1.58, y: -3.28}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -2.06, y: -2.99}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -1.55, y: -2.75}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -1.98, y: -2.23}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -1.5, y: -1.82}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -1.43, y: -1.13}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -1.87, y: -1.46}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -1.89, y: -0.89}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -1.45, y: -0.42}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -1.3, y: 0.33}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -0.58, y: -3.37}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -2.66, y: -3.25}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -3.19, y: -3.5}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -3.07, y: -2.86}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -3.12, y: -2.42}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -2.82, y: -1.82}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -2.52, y: -2.42}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -2.42, y: -1.59}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -2.41, y: -1.13}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -2.12, y: -0.51}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -2.33, y: -0.08}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -2.92, y: -0.82}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -1.79, y: -0.08}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -2.68, y: 0.42}
+  - itemData: {fileID: 11400000, guid: 9b8017fa6a208814d9d2b2230d0237d6, type: 2}
+    position: {x: -1.56, y: 1.07}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: -3.35, y: 1.1}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: 1.98, y: -1.93}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: -3.85, y: -0.94}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: -1.69, y: 1.77}
+  - itemData: {fileID: 11400000, guid: 7c7a7983b3585b44ba9dfd5cb1660b8c, type: 2}
+    position: {x: -2.54, y: 1.57}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -3.32, y: -0.12}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -3.99, y: 0.18}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -3.72, y: -2.97}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -4.24, y: -2.81}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -4.61, y: -3.33}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -4.98, y: -2.8}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: -4.55, y: -2.38}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -3.85, y: -2.38}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -3.49, y: -2.03}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: -4.09, y: -1.79}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: -3.52, y: -1.38}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: 5.15, y: 0.47}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: -6.77, y: 0.61}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: -5.96, y: 1.2}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: -6.75, y: 1.51}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: 6.83, y: -0.88}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: 6.26, y: -0.44}
+  - itemData: {fileID: 11400000, guid: dce698ac65c4fac4bb47006376ff3c2a, type: 2}
+    position: {x: 6.97, y: -0.02}
+  - itemData: {fileID: 11400000, guid: 4971a92c7890b9344bb29aa570227cc8, type: 2}
+    position: {x: -5.6, y: -0.12}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 4.89, y: -2.97}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 5.38, y: -3.57}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 5.8, y: -3.05}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 5.32, y: -2.92}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 5.64, y: -2.57}
+  - itemData: {fileID: 11400000, guid: 74e55c1a636b2374dbbe0bd6514291a6, type: 2}
+    position: {x: 4.7, y: -2.4}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 4.45, y: -1.79}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 3.99, y: -1.46}
+  - itemData: {fileID: 11400000, guid: ef843e12e10b53748a2e0365e90b31da, type: 2}
+    position: {x: 4.52, y: -1.18}
+  - itemData: {fileID: 11400000, guid: 2025246363d747d4093508c3d72c496d, type: 2}
+    position: {x: 5.14, y: -2.18}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 4, y: -0.9}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 5.83, y: -2.05}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: 6.52, y: -3.12}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -5.74, y: -3.12}
+  - itemData: {fileID: 11400000, guid: 3c52c36e8d619644ebbc3d672eeff2ea, type: 2}
+    position: {x: -5.4, y: -2.48}

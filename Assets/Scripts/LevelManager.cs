@@ -42,7 +42,7 @@ public class LevelManager : Singleton<LevelManager>
             Debug.LogError("Current level is not set!");
             return;
         }
-
+        
         CanvasManager.Instance.ShowStoredItemsPanel();
         CanvasManager.Instance.ShowLifePanel();
         StartTimer();
@@ -180,6 +180,7 @@ private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefa
 
     private void FinishLevel()
     {
+        PlayerController.Instance.SetClawBackToInitial();
         GameManager.Instance.NextLevel();
     }
 

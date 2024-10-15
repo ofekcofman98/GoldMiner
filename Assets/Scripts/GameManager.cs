@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameLoop")]
     private bool cleanHiScore = false;
     private int _currentScore;
+    private int _currentHiScore;
     private string _playerName = "Player";
 
     private int _hiScore;
@@ -66,8 +67,10 @@ public class GameManager : Singleton<GameManager>
         
         if (topScores.Count > 0)
         {
-            CanvasManager.Instance.UpdateHiScore(topScores[0].score);
+            _currentHiScore = topScores[0].score;
+            CanvasManager.Instance.UpdateHiScore(_currentHiScore);
         }
+
         CanvasManager.Instance.UpdateScoreText(0);
     }
 
@@ -143,18 +146,17 @@ public class GameManager : Singleton<GameManager>
         if (itemScore > 0)
         {
             _currentScore += itemScore;
-            Debug.Log($"current score: {_currentScore}");
-            
-            HiScoreManager.Instance.CheckForTopFive(_currentScore, _playerName);
+            Debug.Log($"Current score: {_currentScore}");
+
             CanvasManager.Instance.ShowItemScore(itemScore, item.transform.position);
             CanvasManager.Instance.UpdateScoreText(_currentScore);
-
-            List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
-            if (topScores.Count > 0)
+            
+            // List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
+            if (_currentScore > _currentHiScore)
             {
-                CanvasManager.Instance.UpdateHiScore(topScores[0].score);
+                _currentHiScore = _currentScore;
+                CanvasManager.Instance.UpdateHiScore(_currentHiScore);
             }
-
         }
     }
 
@@ -166,10 +168,13 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame()
     {
-        // isGameOver = true;
         Debug.Log("Game Over!");
         currentLevelIndex = 0;
         _cumulativeScoreGoal = 0;
+
+        // Only now, after the game ends, check if the final score qualifies for the top 5.
+        HiScoreManager.Instance.CheckForTopFive(_currentScore, _playerName);
+
         if (HiScoreManager.Instance.CheckIfPlayerIsInTopFive())
         {
             MenuManager.Instance.ShowNameEntryPanel();
@@ -178,21 +183,9 @@ public class GameManager : Singleton<GameManager>
         {
             MenuManager.Instance.ShowGameOverMenu();
         }
+
         Time.timeScale = 0;
         PlayerController.Instance.SetClawBackToInitial();
     }
 
-    private void ClearCurrentItems()
-    {
-        foreach (var item in _currentItems)
-        {
-            DestroyItem(item);
-        }
-        _currentItems.Clear();
-    }
-
-    private void DestroyItem(Item item)
-    {
-        Destroy(item.gameObject);  
-    }
 }

@@ -37,14 +37,16 @@ public class HiScoreManager : Singleton<HiScoreManager>
         {
             int score = PlayerPrefs.GetInt($"TopScore{i}", 0);
             string name = PlayerPrefs.GetString($"TopName{i}", "Unknown");
+            Debug.Log($"Loaded score {i}: {name} - {score}");
             topScores.Add(new ScoreEntry(name, score));
         }
     }
 
     private void SaveTopFiveScores()
     {
-        for (int i = 0; i < MaxTopScores; i++)
+        for (int i = 0; i < topScores.Count; i++)
         {
+            Debug.Log($"Saving score {i}: {topScores[i].playerName} - {topScores[i].score}");
             PlayerPrefs.SetInt($"TopScore{i}", topScores[i].score);
             PlayerPrefs.SetString($"TopName{i}", topScores[i].playerName);
         }
@@ -53,45 +55,61 @@ public class HiScoreManager : Singleton<HiScoreManager>
 
     public void CheckForTopFive(int currentScore, string playerName)
     {
-        // checks if the current score is in top 5 and put it there
+        // Create a new score entry with "Player" as a placeholder
+        ScoreEntry newScore = new ScoreEntry(playerName, currentScore);
+
+        // Check if the current score qualifies for the top 5
         for (int i = 0; i < topScores.Count; i++)
         {
             if (currentScore > topScores[i].score)
             {
-                topScores.Insert(i, new ScoreEntry(playerName, currentScore));
-                
+                // Insert the score at the correct position
+                topScores.Insert(i, newScore);
+
+                // Ensure the list contains only 5 scores
                 if (topScores.Count > MaxTopScores)
                 {
-                    topScores.RemoveAt(MaxTopScores);
+                    topScores.RemoveAt(MaxTopScores);  // Remove the lowest score if needed
                 }
-                SaveTopFiveScores();
-                Debug.Log($"New score added to top 5: {currentScore} by {playerName}");
-                CanvasManager.Instance.UpdateHiScore(topScores[0].score);
+
+                SaveTopFiveScores();  // Save top 5 to PlayerPrefs
+
+                CanvasManager.Instance.UpdateHiScore(topScores[0].score);  // Update the hiScore on the screen
+                Debug.Log($"New score added to top 5: {currentScore} by Player at position {i}");
+
+                // Set flags for name updating
                 isPlayerInTopFive = true;
                 playerPosition = i;
                 return;
             }
         }
 
-        isPlayerInTopFive = false;
+        // Handle case where the score is lower than the top 5
+        if (topScores.Count < MaxTopScores)
+        {
+            topScores.Add(newScore);  // Add the score at the bottom if the list isn't full
+            SaveTopFiveScores();
+        }
     }
+
 
     public void UpdatePlayerNameForTopScore(string playerName)
     {
-        if (isPlayerInTopFive &&
-            playerPosition >= 0 &&
-            playerPosition < topScores.Count)
+        // Only proceed if the player is in the top 5
+        if (isPlayerInTopFive && playerPosition >= 0 && playerPosition < topScores.Count)
         {
+            // Replace the placeholder "Player" with the actual name entered by the player
             topScores[playerPosition] = new ScoreEntry(playerName, topScores[playerPosition].score);
+
+            // Save the updated top scores with the correct player name
             SaveTopFiveScores();
+            Debug.Log($"Player name updated to {playerName} for score {topScores[playerPosition].score}");
         }
         else
         {
             Debug.LogWarning("Player is not in the top 5 or invalid position");
         }
-        
     }
-
 
     public bool CheckIfPlayerIsInTopFive()
     {

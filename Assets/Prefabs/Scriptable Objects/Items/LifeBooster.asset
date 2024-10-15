@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: LifeBooster
   sprite: {fileID: 21300000, guid: d9eabdd2883131445b84f1140a44884b, type: 3}
   size: 0.7
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: ddcdd04b362991d4ea2395fc118ade32, type: 3}
   _lifeToAdd: 1
