@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         HiScoreManager.Instance.LoadTopFiveScores();
+        MenuManager.Instance.ShowMenu(MenuManager.MenuType.MainMenu);
     }
 
 
@@ -62,7 +63,6 @@ public class GameManager : Singleton<GameManager>
 
         LoadLevel(currentLevelIndex);
 
-        BoosterManager.Instance.ClearAllStoredBoosters();
         List<HiScoreManager.ScoreEntry> topScores = HiScoreManager.Instance.GetTopScores();
         
         if (topScores.Count > 0)
@@ -83,7 +83,8 @@ public class GameManager : Singleton<GameManager>
             
             _cumulativeScoreGoal += currentLevel.scoreGoal;
             Debug.Log($"Level {levelIndex + 1} starts now!");
-            MenuManager.Instance.ShowLevelStartPanel(levelIndex + 1, _cumulativeScoreGoal, currentLevel.comment);
+
+            MenuManager.Instance.ShowMenu(MenuManager.MenuType.LevelStart);
             LevelManager.Instance.PrepareLevel(currentLevel, itemPrefab);
         }
         else
@@ -91,6 +92,15 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError("No more levels");
             EndGame();
         }
+    }
+
+    public int GetCurrentLevelNumber()
+    {
+        return currentLevelIndex + 1;
+    }
+    public Level GetCurrentLevel()
+    {
+        return levels[currentLevelIndex];
     }
 
     public void NextLevel()
@@ -177,15 +187,17 @@ public class GameManager : Singleton<GameManager>
 
         if (HiScoreManager.Instance.CheckIfPlayerIsInTopFive())
         {
-            MenuManager.Instance.ShowNameEntryPanel();
+            MenuManager.Instance.ShowMenu(MenuManager.MenuType.NameEntry);
         }
         else
         {
-            MenuManager.Instance.ShowGameOverMenu();
+            MenuManager.Instance.ShowMenu(MenuManager.MenuType.GameOver);
         }
 
         Time.timeScale = 0;
         PlayerController.Instance.SetClawBackToInitial();
+        BoosterManager.Instance.ClearAllStoredBoosters();
+
     }
 
 }

@@ -168,6 +168,14 @@ public class PlayerController : Singleton<PlayerController>
                 }
             }
         }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            if (LevelManager.Instance.isTimerRunning())
+            {
+                MenuManager.Instance.ShowMenu(MenuManager.MenuType.Pause);
+            }
+        }
     }
 
     

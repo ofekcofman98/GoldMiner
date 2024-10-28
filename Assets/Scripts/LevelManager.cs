@@ -54,6 +54,11 @@ public class LevelManager : Singleton<LevelManager>
         timerRunning = true;
     }
 
+    public bool isTimerRunning()
+    {
+        return timerRunning;
+    }
+
     private void Update()
     {
         if (timerRunning)
@@ -81,39 +86,39 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
-private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefab)
-{
-    Debug.Log($"Spawning item: {itemData?.itemName} at position {position}");
-    GameObject newItem = Instantiate(itemPrefab, position, Quaternion.identity);
-    Item itemComponent = newItem.GetComponent<Item>();
-    if (itemComponent != null)
+    private void SpawnItem(ItemData itemData, Vector2 position, GameObject itemPrefab)
     {
-        if (itemData == null)
+        Debug.Log($"Spawning item: {itemData?.itemName} at position {position}");
+        GameObject newItem = Instantiate(itemPrefab, position, Quaternion.identity);
+        Item itemComponent = newItem.GetComponent<Item>();
+        if (itemComponent != null)
         {
-            Debug.LogError("ItemData is null when trying to assign to the item!");
-            return;
-        }
+            if (itemData == null)
+            {
+                Debug.LogError("ItemData is null when trying to assign to the item!");
+                return;
+            }
 
-        itemComponent.itemData = itemData;
-        itemComponent.Initialize();
-        currentItems.Add(itemComponent);
+            itemComponent.itemData = itemData;
+            itemComponent.Initialize();
+            currentItems.Add(itemComponent);
 
-        if (itemData is GrabbableItemData)
-        {
-            grabbableItems.Add(itemComponent);
-        }
+            if (itemData is GrabbableItemData)
+            {
+                grabbableItems.Add(itemComponent);
+            }
 
-        else if (itemData is BoosterItem boosterItem)
-        {
-            Debug.Log($"Spawning booster item: {boosterItem.itemName}");
-        }
-        else if (itemData is NonGrabbableItem nonGrabbableItem)
-        {
-            Debug.Log("Spawning non-grabbable item.");
-        }
+            else if (itemData is BoosterItem boosterItem)
+            {
+                Debug.Log($"Spawning booster item: {boosterItem.itemName}");
+            }
+            else if (itemData is NonGrabbableItem nonGrabbableItem)
+            {
+                Debug.Log("Spawning non-grabbable item.");
+            }
 
+        }
     }
-}
 
     public void OnItemDestroyed(Item item)
     {
