@@ -15,7 +15,10 @@ public class TNTBooster : BoosterItem
     {
         Debug.Log("TNT booster is stored!");
         AudioManager.Instance.PlaySound(_explosionSound);
-        
+        PlayerController.Instance.DestroyGrabbedItem();
+        PlayerController.Instance.StopGrabbing();
+        PlayerController.Instance.SetThrustSpeedToInitial();
+
         // GameObject explosionEffect = Instantiate(explosionPrefab, PlayerController.Instance.transform.position, Quaternion.identity);
         // Destroy(explosionEffect, 2f);  // Destroy effect after 2 seconds
 

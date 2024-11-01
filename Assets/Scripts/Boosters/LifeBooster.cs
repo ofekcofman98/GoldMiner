@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LifeBooster", menuName = "Items/NonGrabbableItem/Booster/LifeBooster")]
-public class LifeBooster : BoosterItem, IBooster
+public class LifeBooster : BoosterItem
 {
     [SerializeField] private int _lifeToAdd = 1;
 

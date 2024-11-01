@@ -159,13 +159,7 @@ public class PlayerController : Singleton<PlayerController>
         {
             if (v_IsGrabbing)
             {
-                if (BoosterManager.Instance.IsTNTStored())
-                {
-                    BoosterManager.Instance.UseStoredTNTBooster();
-                    Destroy(grabbedItem.gameObject);
-                    StopGrabbing();
-                    SetThrustSpeedToInitial();
-                }
+                BoosterManager.Instance.HandleUpKey();
             }
         }
 
@@ -289,13 +283,14 @@ public class PlayerController : Singleton<PlayerController>
 
     public void SetClawBackToInitial()
     {
-        // v_IsDrillActive = false;
+        // v_Is Active = false;
         if (BoosterManager.Instance.IsDrillActive())
         {
             BoosterManager.Instance.InactivateDrill();
         }
         InactivateNextThrustBooster();
         ChangeClawSprite(_clawSprite);
+        ClawSprite = _clawSprite;
         clawCollider.radius = originalColliderRadius;
     }
 
@@ -364,6 +359,14 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    public void DestroyGrabbedItem()
+    {
+        if (grabbedItem != null)
+        {
+            Destroy(grabbedItem.gameObject);
+        }
+    }
+
     public void StopGrabbing()
     {
         v_IsGrabbing = false;
@@ -383,6 +386,20 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
     
+    public Sprite ClawSprite
+    {
+        get { return _clawSprite;}
+        private set
+        {
+            if (_clawSprite != value)
+            {
+                if (clawSpriteRenderer != null)
+                {
+                    clawSpriteRenderer.sprite = value;
+                }
+            }
+        }
+    }
     public void ChangeClawSprite(Sprite sprite)
     {
         if (clawSpriteRenderer != null)

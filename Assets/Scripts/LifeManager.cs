@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LifeManager : Singleton<LifeManager>
 {
     [SerializeField] private int _lifeNumber;
     [SerializeField] private Sprite _lifeSprite;
+
+    public static event Action onPlayerDeath;
 
     private int _currentLifeNumber;
 

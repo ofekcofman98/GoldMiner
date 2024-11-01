@@ -6,6 +6,8 @@ using UnityEngine;
 public class DrillBooster : BoosterItem
 {
     [SerializeField] private Sprite _drillSprite;
+    [SerializeField] private float _spriteSize = 1.5f;
+
     private void OnEnable()
     {
         BoosterType = BoosterType.NextThrust;
@@ -16,7 +18,7 @@ public class DrillBooster : BoosterItem
         Debug.Log("Driller!!!");
         BoosterManager.Instance.ActivateDrill();
         PlayerController.Instance.ChangeClawSprite(_drillSprite);
-        PlayerController.Instance.IncreaseColliderSizeForDrill(1.5f);
+        PlayerController.Instance.IncreaseColliderSizeForDrill(_spriteSize);
     }
 
 }
