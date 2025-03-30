@@ -1,0 +1,56 @@
+# 🪙 Gold Miner – Unity Game Project
+
+A Unity 2D game where the player controls a rotating claw to grab items like gold, rocks, and diamonds. The goal is to reach the target score before time runs out.
+
+## 🎮 Gameplay Features
+
+- Rotating claw that grabs items when the spacebar is pressed
+- Different item types (gold, rock, diamond) with varying scores and weights
+- Boosters and bombs to affect gameplay
+- Multiple levels with increasing difficulty
+- Game timer, level goals, and UI menus
+
+## 🛠️ Technologies Used
+
+- Unity Engine (2D)
+- C#
+- ScriptableObjects for item configuration
+- Custom game manager, level manager, and booster system
+- Event/delegate system for modular logic
+
+## 👨‍💻 My Contribution
+
+Although this project was done in collaboration, I led most of the development:
+- Designed and implemented the core game mechanics in C#
+- Created the item system using ScriptableObjects and weight logic
+- Handled UI menus, timer, level transitions, and boosters
+- Used events and clean design patterns for modularity
+
+> 🔍 The Git commit history reflects the majority of my contributions.
+
+## 📷 Screenshots
+
+
+## 🚀 How to Run
+
+1. Clone the repo
+2. Open it in Unity (2021.3 LTS or similar)
+3. Open the `MainScene` and press Play
+
+## 📁 Folder Structure
+
+- `Scripts/` – All gameplay logic and managers
+- `ScriptableObjects/` – Item and level data
+- `Prefabs/` – Reusable game objects
+- `Scenes/` – MainScene, BackupScene
+- `UI/` – Menus and canvas setup
+
+---
+
+## 📬 Contact
+
+If you'd like to know more or give feedback, feel free to reach out:
+
+📧 ofekcofman98@gmail.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/ofek-cofman)
+
